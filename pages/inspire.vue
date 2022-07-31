@@ -10,12 +10,31 @@
           </small>
         </footer>
       </blockquote>
+      <v-btn @click="getdata">
+
+      </v-btn>
+      <div>
+        data--{{data}}
+      </div>
     </v-col>
   </v-row>
 </template>
 
 <script>
 export default {
-  name: 'InspirePage',
+  middleware: 'auth',
+  data: () => ({
+    data:null
+  }),
+  methods:{
+    async getdata(){
+      await this.$authApi.getlist().then((res) => {
+        console.log('res:', res.data)
+        this.data =res.data
+      }).catch(error => {
+        console.log('error:', error)
+      })
+    }
+  }
 }
 </script>

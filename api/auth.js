@@ -6,7 +6,10 @@ export default ($axios) => {
       attempt: data => $axios.post('/register/attempt',data),
       // 有参数的情况
       sendEmail: () => $axios.post('/register/sendmailcode'),
-      register: data => $axios.post('/register', data)
+      register: data => $axios.post('/register/register', data),
+      login: data => $axios.post('/user/login', data),
+      getlist: () => $axios.get('/auth/list'),
+      info: () => $axios.post('/auth/info'),
       // ...your other api function
     }
   }

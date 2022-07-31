@@ -25,7 +25,7 @@ export default function({ $axios,store }, inject) {
         $axios.onResponse((response) => {
           response.config.endTime = new Date().getTime()
           const status = response.status
-
+          
           if (+status === 200) {
             // 打印出每个接口的响应时间，如果慢了就捶后端，让他优化！！！
             console.info(response.config.url,'请求时间',response.config.endTime - response.config.startTime + 'ms'

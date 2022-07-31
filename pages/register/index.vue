@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-    layout: 'register'
+    layout: 'register',
 }
 </script>
 <style lang="">

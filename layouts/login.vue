@@ -5,6 +5,24 @@
     <v-main>
       <!-- 给应用提供合适的间距 -->
       <v-container >
+        <v-snackbar
+      v-model="snackbar"
+      :timeout="2000"
+      light
+    >
+      {{ snackbarText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="blue"
+          text
+
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
         <v-col >
           <v-sheet max-width="35vh" class="mx-auto pa-5" elevation="1">
           <v-card width="35vh" flat>
@@ -20,7 +38,7 @@
               <v-card-text>
                 <v-col cols="12" md="12">
                   <v-text-field
-                    v-model="user.phoneoremail"
+                    v-model="user.emailorphoneorusername"
                     dense
                     label="手机、账号或者邮箱"
                   ></v-text-field>
@@ -32,7 +50,7 @@
                     label="密码"
                   ></v-text-field>
                 </v-col>
-                <v-btn width="100%" color="primary" class="mx-auto">
+                <v-btn @click="login" width="100%" color="primary" class="mx-auto">
                   登录
                 </v-btn>
               </v-card-text>
@@ -55,26 +73,49 @@
             </v-card>
           </v-sheet>
         </v-col>
-        
-
         </v-sheet>
       </v-container>
     </v-main>
-    <v-footer app padless>
-      {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+    <v-footer   app padless style="text-align: center;">
+      <div >
+        {{ new Date().getFullYear() }} — <strong>@Fake Ins</strong>
+      </div>
+      
     </v-footer>
   </v-app>
 </template>
 <script>
+import parseHead from '@/utils/tools'
+
 export default {
   data: () => ({
     user: {
-      username: '',
-      account: '',
-      phoneoremail: '',
+      emailorphoneorusername: '',
       password: '',
     },
+    snackbar: false,
+    snackbarText: '',
   }),
+  methods:{
+    sendSnackbar(mes){
+      this.snackbarText=mes
+      this.snackbar = true
+    },
+    async login(){
+      await this.$authApi.login({
+        "emailorphoneorusername":this.user.emailorphoneorusername,
+        "password":this.user.password,
+      }).then((res) => {
+        console.log('res:', res.data)
+        const cookieObj = parseHead(res.data.cookie)
+        this.sendSnackbar("登录成功")
+        this.$cookies.set('info',  cookieObj.info,{maxAge:parseInt(cookieObj[" Max-Age"])})
+        this.$router.replace({ name: 'index' });
+      }).catch(error => {
+        this.sendSnackbar(error.response.data.msg)
+      })
+    }
+  }
 }
 </script>
 <style lang=""></style>

@@ -70,7 +70,6 @@
 
 <script>
 export default {
-  name: 'Banners',
   data: () => ({
   length: 3,
   onboarding: 0,

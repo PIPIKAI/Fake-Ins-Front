@@ -10,6 +10,7 @@ export default ($axios) => {
       login: data => $axios.post('/user/login', data),
       getlist: () => $axios.get('/auth/list'),
       info: () => $axios.post('/auth/info'),
+      logout: () => $axios.post('/user/logout'),
       // ...your other api function
     }
   }

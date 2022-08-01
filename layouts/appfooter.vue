@@ -1,9 +1,15 @@
 <template>
-  <div>
-    <v-footer app padless>
-      <text>{{ new Date().getFullYear() }} — <strong>Vuetify</strong></text>
+
+    <v-footer app  padless>
+      <v-col md="12" class="pa-0">
+        <div  class="text-subtitle-2 text-center">
+      {{ new Date().getFullYear() }} — <strong>Faker Ins</strong>
+      </div>
+      </v-col>
+      
+ 
     </v-footer>
-  </div>
+
 </template>
 
 <script>

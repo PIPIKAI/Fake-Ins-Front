@@ -14,7 +14,6 @@ export const state = () => ({
     sendSnackbar(state,msg) {
       state.snackbar = true
       state.snackbarText = msg
-      
     },
     SnackbarReset(state) {
       state.snackbar = false

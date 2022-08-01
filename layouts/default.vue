@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <appbar></appbar>
-    <v-main class="grey lighten-3">
+    <v-main >
       <v-container>
         <v-snackbar v-model="data.snackbar" :timeout="$store.state.timeout" light>
           {{ $store.state.snackbarText}}
@@ -14,16 +14,18 @@
 
         <nuxt />
       </v-container>
+      <div    
+      {{ new Date().getFullYear() }} — <strong>Faker Ins</strong>
+      </div>
     </v-main>
-    <appfooter></appfooter>
+   
   </v-app>
 </template>
 
 <script>
 import appbar from './appbar.vue'
-import appfooter from './appfooter.vue'
 export default {
-  components: { appbar, appfooter },
+  components: { appbar },
 
   computed :{
     data(){

@@ -186,8 +186,8 @@
           <v-sheet max-width="38vh" class="mx-auto pa-5" elevation="1">
             <v-card width="35vh" flat>
               <v-col>
-                <v-card-text center>
-                已有账号了？<router-link to="/">登录</router-link>
+                <v-card-text class="text-subtitle-2 text-center">
+                已有账号了？<router-link to="/login">登录</router-link>
               </v-card-text>
 
 
@@ -200,9 +200,7 @@
         </v-sheet>
       </v-container>
     </v-main>
-    <v-footer app padless>
-      {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-    </v-footer>
+
   </v-app>
 </template>
 <script>

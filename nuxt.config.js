@@ -18,11 +18,14 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    'element-ui/lib/theme-chalk/index.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    {src:'~/plugins/request'},
+    '~/plugins/request',
+    '~plugins/element-ui/element-ui.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -75,7 +78,7 @@ export default {
           success: colors.green.accent3,
         },
         light: {
-          primary: '#3f51b5',
+          primary: '#2196F3',
           secondary: '#b0bec5',
           accent: '#8c9eff',
           error: '#b71c1c',
@@ -86,5 +89,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    vendor: ['element-ui']
   },
 }

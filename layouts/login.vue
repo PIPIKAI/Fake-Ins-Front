@@ -46,8 +46,11 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="user.password"
+                    :append-icon="showeye ? 'mdi-eye' : 'mdi-eye-off'"
                     dense
+                    :type="showeye ? 'text' : 'password'"
                     label="密码"
+                    @click:append="showeye = !showeye"
                   ></v-text-field>
                 </v-col>
                 <v-btn @click="login" width="100%" color="primary" class="mx-auto">
@@ -63,7 +66,7 @@
           <v-sheet max-width="35vh" class="mx-auto pa-5" elevation="1">
             <v-card width="35vh" flat>
               <v-col>
-                <v-card-text center>
+                <v-card-text class="text-subtitle-2 text-center">
                没有账户？<nuxt-link to="/register">注册</nuxt-link>
               </v-card-text>
 
@@ -76,12 +79,7 @@
         </v-sheet>
       </v-container>
     </v-main>
-    <v-footer   app padless style="text-align: center;">
-      <div >
-        {{ new Date().getFullYear() }} — <strong>@Fake Ins</strong>
-      </div>
-      
-    </v-footer>
+
   </v-app>
 </template>
 <script>
@@ -95,6 +93,7 @@ export default {
     },
     snackbar: false,
     snackbarText: '',
+    showeye: false,
   }),
   methods:{
     sendSnackbar(mes){

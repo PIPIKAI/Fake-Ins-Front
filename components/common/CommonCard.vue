@@ -1,13 +1,15 @@
 <template>
   <div>
     <v-sheet max-width="38vh" class="mx-auto pa-5" elevation="1">
-      <v-card width="35vh" flat>
-        
-      </v-card>
+      <nuxt />
     </v-sheet>
   </div>
 </template>
 <script>
-export default {}
+export default {
+  name: 'CommonCard'
+}
 </script>
 <style lang=""></style>
+
+

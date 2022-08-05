@@ -25,7 +25,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/request',
-    '~plugins/element-ui/element-ui.js'
+    '~plugins/element-ui/element-ui.js',
+    { src: '~/plugins/cropper.js', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

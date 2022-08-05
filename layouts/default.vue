@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import appbar from './appbar.vue'
+import appbar from './appBar.vue'
 export default {
   components: { appbar },
 

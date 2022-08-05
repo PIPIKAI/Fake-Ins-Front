@@ -11,6 +11,8 @@ export default ($axios) => {
       getlist: () => $axios.get('/auth/list'),
       info: () => $axios.post('/auth/info'),
       logout: () => $axios.post('/user/logout'),
+      uploadImg: data => $axios.post('/auth/upload/imge',data),
+      createPost: data => $axios.post('/auth/createPost',data),
       // ...your other api function
     }
   }

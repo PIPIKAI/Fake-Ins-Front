@@ -20,7 +20,7 @@
       </v-icon>
   </v-card-actions>
   <!-- 轮播图 -->
-    <v-carousel  
+    <!-- <v-carousel  
     hide-delimiter-background
     delimiter-icon="mdi-minus"
     >
@@ -29,7 +29,16 @@
       :key="i"
       :src="item.src"
     ></v-carousel-item>
-  </v-carousel>
+  </v-carousel> -->
+  <el-carousel trigger="click"  :autoplay="false" :loop="false">
+      <el-carousel-item v-for="(item,i) in items" :key="i">
+        <el-image
+        style="width: 100%; height: 100%"
+      :src="item.src"
+      fit="cover"></el-image>
+      </el-carousel-item>
+      
+    </el-carousel>
   <v-card-actions class="pa-1 mx-1" >
        <v-icon @click="1">mdi-cards-heart-outline</v-icon>
        <v-icon @click="1">mdi-chat-outline</v-icon>
@@ -71,14 +80,12 @@
 
     <v-divider></v-divider>
     <v-card-actions class="pa-0" >
-          <v-text-field
-        label="评论"
-        dense
-        solo
-        flat
-        prepend-inner-icon="mdi-emoticon-cool-outline"
-        
-        ></v-text-field>
+         <el-input
+         prefix-icon="el-icon-s-comment"
+          placeholder="评论"
+          maxlength="220"
+          v-model="textarea1">
+        </el-input>
         
       <v-btn
         color="blue"
@@ -109,10 +116,8 @@ export default {
           {
             src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
           },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
         ],
+        textarea1:''
     }),  
     methods: {
       reserve () {

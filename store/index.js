@@ -1,3 +1,4 @@
+import cteatePostModule from './module/createPost'
 export const state = () => ({
     counter: 0,
     mid: null,
@@ -22,4 +23,8 @@ export const state = () => ({
       state.user=user
       
     }
+  }
+
+  export const modules={
+    cteatePostModule,
   }

@@ -8,7 +8,7 @@
         <v-col md="2" class="pa-1">
 
           <img height="50vh" lazy-src="https://picsum.photos/id/11/10/6"
-            src="https://gd-hbimg.huaban.com/f4c384c25a3c7f8c6571a2e34dfe62da5218d743151e2-Q2HJ6i_fw1200"></img>
+            src="https://gd-hbimg.huaban.com/f4c384c25a3c7f8c6571a2e34dfe62da5218d743151e2-Q2HJ6i_fw1200"/>
 
         </v-col>
         <v-col md="2" class="pa-3">

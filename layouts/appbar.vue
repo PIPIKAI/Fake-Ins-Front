@@ -120,6 +120,7 @@ import CropImageCard from '../components/createpost/cropImageCard.vue'
 import CreatePostCard from '../components/createpost/createPostCard.vue'
 
 export default {
+  name: 'appbar',
   components:{
     UploadCard,
     CropImageCard,

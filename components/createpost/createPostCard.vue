@@ -34,10 +34,10 @@
           </v-card-title>
           <v-card-actions max-height="30vh" class="pa-0 ma-1">
             <v-textarea
+              v-model="mycomment"
               counter
               label="添加说明.."
               :rules="rules"
-              :value="comment"
               solo
               flat
             ></v-textarea>
@@ -45,9 +45,9 @@
           <v-divider></v-divider>
           <v-card-actions max-height="30vh" class="pa-0 ma-1">
             <v-text-field
+              v-model="place"
               label="位置"
               append-icon="mdi-map-marker"
-              :value="place"
               solo
               flat
             ></v-text-field>
@@ -56,7 +56,7 @@
           <v-divider></v-divider>
           <v-card-actions fixed max-height="30vh" class="pa-0 ma-1">
             <v-combobox
-              v-model="chips"
+              v-model="categorys"
               chips
               clearable
               label="类别"
@@ -64,7 +64,7 @@
               solo
               flat
             >
-              <template v-slot:selection="{ attrs, item, select, selected }">
+              <template #selection="{ attrs, item, select, selected }">
                 <v-chip
                   v-bind="attrs"
                   :input-value="selected"
@@ -86,21 +86,32 @@
 export default {
   data: () => ({
     update: true,
-    comment: '',
-    place: '',
     rules: [(v) => v.length <= 220 || '最多输入 220 字符'],
-    chips: [
-    ],
-    items: ['Streaming', 'Eating'],
+    categorys: [],
+    mycomment: "",
+    place: "",
+
   }),
   computed: {},
   methods: {
     reload() {},
     uploadPost() {
-      this.$store.commit('cteatePostModule/test')
+      this.$store.dispatch('cteatePostModule/createPost',{
+        "user_id" : this.$store.state.user.ID,
+        "categorys":this.categorys,
+        "mycomment":this.mycomment,
+        "place":this.place,
+        "data_list": this.$store.state.cteatePostModule.FileList
+      }).then(res=>{
+        console.log(res)
+        this.$store.commit('cteatePostModule/setFileList',null)
+        this.$router.go(0)
+      }).catch(err =>{
+        console.log(err)
+      })
     },
     remove(item) {
-      this.chips.splice(this.chips.indexOf(item), 1)
+       this.categorys.splice(this.categorys.indexOf(item), 1)
     },
   },
 }

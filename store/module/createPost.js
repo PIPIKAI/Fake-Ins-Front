@@ -6,9 +6,6 @@ const cteatePostModule = {
     
   },
   mutations: {
-    test(state){
-      console.log('cteatePostModule / test')
-    },
     setFileList(state,filelist){
       state.FileList = filelist
     },
@@ -23,6 +20,9 @@ const cteatePostModule = {
     uploadimges(state,imgesList){
       console.log('cteatePostModule / uploadimges')
     },
+    async createPost(state,data){
+      return await this.$authApi.createPost(data).then((result) => result).catch((err) =>  reject(err));
+    },
   },
   getters:{
     ListLen(state){
@@ -35,3 +35,4 @@ const cteatePostModule = {
 }
 
 export default cteatePostModule
+

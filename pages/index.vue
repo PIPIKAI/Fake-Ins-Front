@@ -4,9 +4,10 @@
       <v-col cols="12" md="3">
       </v-col>
       <v-col cols="12" md="5">
-
-        <postcards min-height="70vh" />
-        <postcards min-height="70vh" />
+        <div v-for="post in posts" :key="post.ID">
+          <postcards :post-contend="post" min-height="70vh" />
+        
+        </div>
 
       </v-col>
 
@@ -35,24 +36,23 @@
             </v-subheader>
             <v-subheader >
               <strong>为你推荐</strong>
+              
               <v-spacer></v-spacer>
               查看全部
             </v-subheader>
-            <v-list-item v-for="folder in folders" :key="folder.title">
+            <v-list-item v-for="recommend_user in recommendUsers" :key="recommend_user.ID">
               <v-list-item-avatar>
-                <v-icon
-                x-large
-                >mdi-account-circle</v-icon>
+                <img :src='recommend_user.Photo'>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title v-text="folder.title"></v-list-item-title>
+                <v-list-item-title v-text="recommend_user.Name"></v-list-item-title>
 
                 <v-list-item-subtitle >推荐用户</v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action>
-                <v-btn color="primary" text>
+                <v-btn color="primary" @click="watchUser(recommend_user.ID)" text>
                   关注
                 </v-btn>
               </v-list-item-action>
@@ -61,7 +61,6 @@
 
             <v-subheader >关于.帮助.API.工作.隐私.条款.地点.语言</v-subheader>
             <v-subheader >@2021 INSTANCE FROM METAA</v-subheader>
-
           </v-list>
           
         </v-sheet>
@@ -76,41 +75,32 @@
 <script>
 export default {
   layout: 'default',
-
   middleware: 'auth',
+  async asyncData({ store}) {
+    const posts = await store.dispatch('getPostModule/getHomePosts')
+    const recommendUsers = await store.dispatch('UserModule/getCommendUsers')
+    store.commit("SetUserMap",recommendUsers)
+    return { 
+      posts,
+      recommendUsers
+    }
+  },
   data: () => ({
-    files: [
-      {
-        color: 'blue',
-        icon: 'mdi-clipboard-text',
-        subtitle: 'Jan 20, 2014',
-        title: 'Vacation itinerary',
-      },
-      {
-        color: 'amber',
-        icon: 'mdi-gesture-tap-button',
-        subtitle: 'Jan 10, 2014',
-        title: 'Kitchen remodel',
-      },
-    ],
-    folders: [
-      {
-        subtitle: 'Jan 9, 2014',
-        title: 'Photos',
-      },
-      {
-        subtitle: 'Jan 17, 2014',
-        title: 'Recipes',
-      },
-      {
-        subtitle: 'Jan 28, 2014',
-        title: 'Work',
-      },
-    ],
   }),
   methods: {
     btnmethods() {
       this.$store.commit('sendSnackbar', "messssssage")
+    },
+    async watchUser(uid){
+      await this.$store.dispatch('UserModule/watchUser',uid).then(res=>{
+        console.log("res",res)
+        if (res.code === 200){
+          this.$message.success("关注成功！")
+        }else{
+          this.$message.error(res.response.data.msg)
+        }
+        
+      })
     }
   }
 }

@@ -216,6 +216,10 @@ export default {
           temp[i].blobData = data
           this.$store.commit("cteatePostModule/setFileList",JSON.parse(JSON.stringify(temp)))
         })
+        this.$refs.cropper[i].getCropData((data) => {
+          temp[i].base64Date = data
+          this.$store.commit("cteatePostModule/setFileList",JSON.parse(JSON.stringify(temp)))
+        })
       }
       this.$emit('nextpage')
     },

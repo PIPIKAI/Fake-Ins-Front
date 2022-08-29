@@ -10,12 +10,19 @@ const getPostModule = {
       return await this.$authApi.GetPostByPostID(postID).then((result) => result).catch((err) =>  reject(err));
     },
     async getPostsByUid(state,uid){
-      return await this.$authApi.GetPostByUserID(uid).then((result) => result.data.posts).catch((err) =>  reject(err));
+      return new Promise((resolve, reject) => {
+        this.$authApi.GetPostByUserID(uid).then((result) => {resolve(result.data)}).catch((err) =>{ reject(err)});
+      }); 
     },
     async getHomePosts(state){
-      return await this.$authApi.GetWaths().then((result) => result.data.posts).catch((err) =>  (err));
+      return await this.$authApi.GetHomePosts().then((result) => result.data).catch((err) =>  (err));
     },
-    async getRecommendPosts(state,data){
+    async deletePost(state,data){
+      return new Promise((resolve, reject) => {
+        this.$authApi.deletePost(data).then((result) => {resolve(result.data)}).catch((err) =>{ reject(err)});
+      });   
+    },
+    async getRecommendPosts (state,data){
      
     },
   },

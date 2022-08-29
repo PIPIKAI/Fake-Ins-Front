@@ -1,17 +1,8 @@
 <template>
   <div>
-    <v-dialog
-      v-model="exitdialog"
-      persistent
-      max-width="30vh"
-    >
+    <v-dialog v-model="exitdialog" persistent max-width="30vh">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
+        <v-btn color="primary" dark v-bind="attrs" v-on="on">
           Open Dialog
         </v-btn>
       </template>
@@ -19,18 +10,10 @@
         <v-card-title>放弃编辑内容？</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="error"
-            text
-            @click="abandonContent"
-          >
+          <v-btn color="error" text @click="abandonContent">
             放弃
           </v-btn>
-          <v-btn
-            color="info"
-            text
-            @click="exitdialog = false"
-          >
+          <v-btn color="info" text @click="exitdialog = false">
             取消
           </v-btn>
         </v-card-actions>
@@ -38,16 +21,17 @@
     </v-dialog>
 
 
-    <v-dialog :persistent="postcardStatus > 0" @click:outside="clickOutside"  v-model="postDialog" flat rounded="lg" outlined  :width="dialogWidth[postcardStatus]" >
+    <v-dialog :persistent="postcardStatus > 0" @click:outside="clickOutside" v-model="postDialog" flat rounded="lg"
+      outlined :width="dialogWidth[postcardStatus]">
       <div v-if="postcardStatus == 0">
-          <UploadCard ref="uploadcard" @nextpage="postcardStatus =1"/>
-          <!-- <CropImageCard/> -->
+        <UploadCard ref="uploadcard" @nextpage="postcardStatus = 1" />
+        <!-- <CropImageCard/> -->
       </div>
       <div v-else-if="postcardStatus == 1">
-          <CropImageCard ref="cropcard" @prepage="statussub" @nextpage="statusadd" @abandonPost="clickOutside"/>
+        <CropImageCard ref="cropcard" @prepage="statussub" @nextpage="statusadd" @abandonPost="clickOutside" />
       </div>
       <div v-else>
-          <CreatePostCard ref="postCard" @prepage="statussub"/>
+        <CreatePostCard ref="postCard" @prepage="statussub" />
       </div>
     </v-dialog>
     <v-app-bar light app flat outlined>
@@ -100,6 +84,10 @@
                     个人信息
                   </v-btn>
                   <v-divider class="my-3"></v-divider>
+                  <v-btn depressed rounded text @click="myWatched">
+                    我的关注
+                  </v-btn>
+                  <v-divider class="my-3"></v-divider>
                   <v-btn depressed rounded text @click="logout">
                     登出
                   </v-btn>
@@ -120,8 +108,7 @@ import CropImageCard from '../components/createpost/cropImageCard.vue'
 import CreatePostCard from '../components/createpost/createPostCard.vue'
 
 export default {
-  name: 'appbar',
-  components:{
+  components: {
     UploadCard,
     CropImageCard,
     CreatePostCard,
@@ -139,7 +126,8 @@ export default {
     postDialog: false,
     postcardStatus: 0,
     exitdialog: false,
-    dialogWidth:['75vh','75vh','105vh']
+    dialogWidth: ['75vh', '75vh', '105vh'],
+    wathchedListDialog: false,
   }),
   computed: {
     avater() {
@@ -153,7 +141,7 @@ export default {
       } else if (newdata === 2) {
         this.postDialog = true
       } else if (newdata === 0) {
-        if (this.$route.path !== '/'){
+        if (this.$route.path !== '/') {
           this.$router.push('/')
         }
       }
@@ -174,21 +162,24 @@ export default {
         this.$store.commit("sendSnackbar", "error")
       })
     },
-    statusadd(){
-      this.postcardStatus +=1
+    statusadd() {
+      this.postcardStatus += 1
     },
-    statussub(){
-      this.postcardStatus -=1
+    statussub() {
+      this.postcardStatus -= 1
     },
-    clickOutside(){
-      if (this.postcardStatus > 0){
+    clickOutside() {
+      if (this.postcardStatus > 0) {
         this.exitdialog = true
       }
     },
-    abandonContent(){
+    abandonContent() {
       this.exitdialog = false;
-      this.$store.commit('cteatePostModule/setFileList',null)
-      this.postcardStatus=0
+      this.$store.commit('cteatePostModule/setFileList', null)
+      this.postcardStatus = 0
+    },
+    myWatched() {
+      this.wathchedListDialog = true
     }
   }
 

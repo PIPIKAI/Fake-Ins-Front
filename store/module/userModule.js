@@ -32,7 +32,16 @@ const UserModule = {
         return await this.$authApi.UnWatchUser(uid).then((result) => result).catch((err) =>  (err));
       },
       async getCommendUsers(state){
-        return await await this.$authApi.CommentsUsers().then((result) => result.data.data).catch((err) =>  (err));
+        return  await this.$authApi.CommentsUsers().then((result) => result.data.data).catch((err) =>  (err));
+      },
+      async getUserInfoByUserName(state,username){
+        return new Promise((resolve, reject) => {
+          this.$authApi.GetUserByUserName(username).then((result) => {resolve(result.data.data)}).catch((err) =>{ reject(err)});
+        });   
+      },
+      async getUserByUid(state,uid){
+        return this.$authApi.GetUserByUid(uid).then((result) =>result).catch((err)=>(err))
+   
       },
     },
     getters:{

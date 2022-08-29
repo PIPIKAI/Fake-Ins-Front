@@ -7,8 +7,7 @@ export const state = () => ({
     snackbar: false,
     snackbarText: 'store.state',
     timeout:3000,
-    user: null,
-    userMap : new Map()
+    user: null
   })
   
   export const mutations = {
@@ -22,17 +21,25 @@ export const state = () => ({
     SnackbarReset(state) {
       state.snackbar = false
     },
-    info(state,user) {
+    SetInfo(state,user) {
       state.user=user
-      state.userMap.set(user.ID,user)
-      user.Watchs.forEach(element => {
-        state.userMap.set(element.ID,element)
-      });
+    }
+  }
+  export const actions={
+    async LikeOrNot(stata,data){
+      return await new Promise((resolve, reject) => {
+         this.$authApi.IsLiked(data).then((result) => {resolve(result.data)}).catch((err) =>{ reject(err)});
+      }); 
     },
-    SetUserMap(state,userList) {
-      userList.forEach(element => {
-        state.userMap.set(element.ID,element)
-      });
+    async Like(stata,data){
+      return await new Promise((resolve, reject) => {
+         this.$authApi.LikePost(data).then((result) => {resolve(result.data)}).catch((err) =>{ reject(err)});
+      }); 
+    },
+    async UndoLike(stata,data){
+      return await new Promise((resolve, reject) => {
+         this.$authApi.UndoLikePost(data).then((result) => {resolve(result.data)}).catch((err) =>{ reject(err)});
+      }); 
     }
   }
 

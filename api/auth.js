@@ -1,28 +1,43 @@
 export default ($axios) => {
     
-    $axios.setBaseURL('http://localhost:1016/api')
+    $axios.setBaseURL('http://localhost:1016/api/v1')
       
     return {
+      // login and register
       attempt: data => $axios.post('/register/attempt',data),
       // 有参数的情况
       sendEmail: () => $axios.post('/register/sendmailcode'),
       register: data => $axios.post('/register/register', data),
-      login: data => $axios.post('/user/login', data),
-      // getlist: () => $axios.get('/auth/list'),
-      info: () => $axios.post('/auth/user/info'),
-      logout: () => $axios.post('/auth/user/logout'),
-      CommentsUsers:() =>  $axios.post('/auth/user/commend/users'),
-      WatchUser: (uid) => $axios.post(`/auth/user/watch/${uid}`),
-      UnWatchUser: (uid) => $axios.post(`/auth/user/unwatch/${uid}`),
+      login: data => $axios.post('/login', data),
 
-      uploadImg: data => $axios.post('/auth/upload/imge',data),
-      createPost: data => $axios.post('/auth/post/create',data),
-      GetPostByPostID: (postid) => $axios.post(`/auth/post/getby/postid/${postid}`),
+
+      // User
+      info: () => $axios.post('/user/info'),
+      editInfo: (data) => $axios.put('/user/info',data),
+      logout: () => $axios.post('/user/logout'),
       
-      GetPostByUserID: (uid) => $axios.post(`/auth/post/getby/uid/${uid}`),
-      GetWaths: () => $axios.post(`/auth/post/get/home`),
-      // $axios.headers['Content-Type'] = 'multipart/form-data'
+      WatchUser: (uid) => $axios.post(`/user/watch/${uid}`),
+      UnWatchUser: (uid) => $axios.post(`/user/unwatch/${uid}`),
+      GetUserByUserName:(username) => $axios.post(`/user/getby/username/${username}`),
+      GetUserByUid:(uid) => $axios.post(`/user/getby/uid/${uid}`),
+
+      // Post
+      createPost: data => $axios.post(`/post/create?uid=${data.user_id}`,data),
+      deletePost: (data) => $axios.request(`/post/delete/${data.postid}?uid=${data.uid}`,{
+        method: 'delete'
+      }),
+      editPost: (postid,data) => $axios.put(`/post/edit/${postid}`,data),
+      GetPostByPostID: (postid) => $axios.post(`/post/getby/postid/${postid}`),
+      GetPostByUserID: (uid) => $axios.post(`/post/getby/uid/${uid}`),
+      GetHomePosts: () => $axios.post(`/post/get/home`),
+      // Like
+      LikePost: (data) => $axios.post(`/post/like?ownerid=${data.ownerid}&owner_type=${data.owner_type}`),
+      UndoLikePost: (data) => $axios.delete(`/post/undolike?ownerid=${data.ownerid}&owner_type=${data.owner_type}`),
+      IsLiked:(data)=> $axios.post(`/post/likedornot?ownerid=${data.ownerid}&owner_type=${data.owner_type}`),
+
       // ...your other api function
+      // commender
+      CommentsUsers:() =>  $axios.post('/user/unwatchedusers'),
     }
   }
   

@@ -4,14 +4,14 @@
       <v-col cols="12" md="3">
       </v-col>
       <v-col cols="12" md="5">
-        <div v-for="post in posts" :key="post.ID">
+        <div v-for="(post,index) in posts" :key="index">
           <postcards :post-contend="post" min-height="70vh" />
         
         </div>
 
       </v-col>
 
-      <v-col cols="12" md="2">
+      <v-col cols="12" md="3">
         <v-sheet rounded="lg" class="mx-auto my-5 pa-1"   min-height="268">
           <v-list subheader two-line>
             
@@ -29,7 +29,7 @@
                 <v-list-item-subtitle v-text="$store.state.user.Name"></v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
-                <v-btn color="primary" text>
+                <v-btn color="primary" outlined>
                   切换
                 </v-btn>
               </v-list-item-action>
@@ -52,7 +52,7 @@
               </v-list-item-content>
 
               <v-list-item-action>
-                <v-btn color="primary" @click="watchUser(recommend_user.ID)" text>
+                <v-btn color="primary" @click="watchUser(recommend_user.ID)" outlined>
                   关注
                 </v-btn>
               </v-list-item-action>
@@ -77,11 +77,15 @@ export default {
   layout: 'default',
   middleware: 'auth',
   async asyncData({ store}) {
-    const posts = await store.dispatch('getPostModule/getHomePosts')
+    const data = await store.dispatch('getPostModule/getHomePosts')
+    const posts = data.data
+    const page = data.page
+    const pageSize = data.page_size
     const recommendUsers = await store.dispatch('UserModule/getCommendUsers')
-    store.commit("SetUserMap",recommendUsers)
     return { 
       posts,
+      page,
+      pageSize,
       recommendUsers
     }
   },

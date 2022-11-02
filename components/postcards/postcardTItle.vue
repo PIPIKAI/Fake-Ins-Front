@@ -6,18 +6,18 @@
                 <v-divider class="ma-0 pa-0"></v-divider>
                 <v-btn block color="info" text @click="1"> 编辑 </v-btn>
                 <v-divider class="ma-0 pa-0"></v-divider>
-                <v-btn block color="info" text @click="1"> 打开帖子 </v-btn>
+                <v-btn block color="info" text @click="openPost"> 打开帖子 </v-btn>
                 <v-divider class="ma-0 pa-0"></v-divider>
                 <v-btn block color="info" text @click="menuDialog = false">
                     取消
                 </v-btn>
             </v-sheet>
             <v-sheet v-else>
-                <v-btn block color="error" text @click="1"> 举报 </v-btn>
+                <v-btn block color="error" text @click="report"> 举报 </v-btn>
                 <v-divider class="ma-0 pa-0"></v-divider>
-                <v-btn block color="error" text @click="1"> 停止关注 </v-btn>
+                <v-btn block color="error" text @click="unWatchUser"> 停止关注 </v-btn>
                 <v-divider class="ma-0 pa-0"></v-divider>
-                <v-btn block color="info" text @click="1"> 打开帖子 </v-btn>
+                <v-btn block color="info" text @click="openPost"> 打开帖子 </v-btn>
                 <v-divider class="ma-0 pa-0"></v-divider>
                 <v-btn block color="info" text @click="menuDialog = false">
                     取消
@@ -25,7 +25,7 @@
             </v-sheet>
         </v-dialog>
         <v-card-actions class="pa-1">
-            <v-avatar size="30" class="mx-1">
+            <v-avatar size="30" class="mx-1" @click="$router.push('/user/'+user.UserName)">
                 <img :src="user.Photo" />
             </v-avatar>
             {{ user.Name }}
@@ -75,6 +75,19 @@ export default {
                     this.$message.error('删除失败')
                 })
         },
+        async unWatchUser(){
+            return await this.$store.dispatch("UserModule/unWatchUser",(this.user.ID)).then(()=>{
+                this.$message.success('取关成功')
+                this.$emit('deletePost')
+            })
+        },
+        report(){
+            this.$message.success('举报成功')
+        },
+        openPost(){
+            this.$router.push('/p/'+this.postid)
+        }
+
     },
 }
 </script>

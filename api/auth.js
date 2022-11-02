@@ -37,7 +37,13 @@ export default ($axios) => {
 
       // ...your other api function
       // commender
-      CommentsUsers:() =>  $axios.post('/user/unwatchedusers'),
+      CommenderUsers:() =>  $axios.post('/user/unwatchedusers'),
+
+      // CommentsPost:() =>  $axios.post('/user/unwatchedusers'),
+      // ReplyPost:() =>  $axios.post('/user/unwatchedusers'),
+      GetComments: (data) => $axios.get(`/comment/get?postid=${data.postid}&page=${data.page}&page_size=${data.page_size}`),
+      CommentPost: (data) => $axios.post(`/comment/post?uid=${data.userID}`,data),
+      ReplyComment: (data) => $axios.post(`/comment/reply?uid=${data.userID}`,data)
     }
   }
   

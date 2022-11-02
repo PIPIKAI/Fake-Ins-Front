@@ -67,8 +67,7 @@
         </v-col>
 
         <v-col class="pa-1">
-
-          <v-btn v-for="(items, index) in iconItems" :key="items.v" icon @click="selected = index">
+          <v-btn v-for="(items, index) in iconItems" :key="items.v" icon @click="changeSelected(index)">
 
             <v-icon v-if="selected == index">{{ items.cicon }}</v-icon>
             <v-icon v-else>{{ items.icon }}</v-icon>
@@ -138,29 +137,16 @@ export default {
       { v: '发现', icon: 'mdi-compass-outline', cicon: 'mdi-compass' },
       { v: '被点赞', icon: 'mdi-cards-heart-outline', cicon: 'mdi-cards-heart' },
     ],
-    selected: 0,
     postDialog: false,
     postcardStatus: 0,
     exitdialog: false,
     dialogWidth:['75vh','75vh','105vh'],
     wathchedListDialog: false,
+    selected: 0
   }),
   computed: {
   },
   watch: {
-    selected(newdata, _) {
-      if (newdata === 3) {
-        this.$router.replace('/exploer')
-      } else if (newdata === 2) {
-        this.postDialog = true
-      } else if (newdata === 0) {
-        if (this.$route.path !== '/'){
-          this.$router.push('/')
-        }
-      }else{
-          // this.$router.push('/')
-      }
-    },
     postDialog(newdata, _) {
       if (newdata === false) {
         if (this.$route.path === '/'){
@@ -174,8 +160,8 @@ export default {
   },
   methods: {
     async logout() {
-      await this.$authApi.logout().then((res) => {
-        console.log('res:', res.data)
+      await this.$authApi.logout().then(() => {
+        // console.log('res:', res.data)
         this.$cookies.remove('info')
         this.$router.replace({ name: 'login' });
       }).catch(() => {
@@ -200,6 +186,16 @@ export default {
     },
     myWatched(){
       this.wathchedListDialog = true
+    },
+    changeSelected(newdata){
+      this.selected = newdata
+      if (newdata === 3) {
+        this.$router.push('/exploer')
+      } else if (newdata === 2) {
+        this.postDialog = true
+      } else if (newdata === 0) {
+          this.$router.push('/')
+      }
     }
   }
 

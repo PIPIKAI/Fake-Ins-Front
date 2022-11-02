@@ -5,111 +5,101 @@
         <v-row>
           <v-col class="ma-0 pa-0">
             <v-card flat>
-              <v-carousel
-                hide-delimiter-background
-                delimiter-icon="mdi-minus"
-                width="auto"
-                height="auto"
-                :continuous="false"
-              >
+              <v-carousel hide-delimiter-background delimiter-icon="mdi-minus" width="auto" height="auto"
+                :continuous="false">
                 <v-carousel-item v-for="(item, i) in post.ImgUrls" :key="i">
-                  <v-img :src="item.Url" height="50vh" width="50vh"></v-img>
+                  <v-img :src="item.Url" height="60vh" width="60vh"></v-img>
                 </v-carousel-item>
               </v-carousel>
             </v-card>
           </v-col>
           <v-col class="ma-0 pa-0">
-            <v-card height="50vh" class="ma-auto pa-0" flat outlined>
-              <!-- 头像 -->
-              <v-card-actions class="ma-0">
-                <v-avatar size="30" class="mx-1">
-                  <img alt="Avatar" :src="user.Photo" />
-                </v-avatar>
-                {{ user.Name }}
-                <v-spacer></v-spacer>
-                <!-- <strong>
-              已关注
-            </strong> -->
-                <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon> mdi-dots-horizontal </v-icon>
-                </v-btn>
-              </v-card-actions>
 
+            <v-card max-height="60vh" max-width="45vh" class="ma-auto pa-0" flat outlined>
+              <!-- 头像 -->
+              <postcardTItle height="6vh" :uid="post.UserID" :postid="post.ID" @deletePost="deleted = true" />
               <v-divider></v-divider>
               <!-- 评论 -->
-              <PostComments :comments="post.Comments"></PostComments>
-              <v-card-actions class="pa-0 ma-1">
-                <v-list>
-                  <v-list-item> dsadas </v-list-item>
-                </v-list>
-              </v-card-actions>
-
+              <div class="outer-container">
+                <div class="inner-container">
+                  <PostComments :postid="post.ID"></PostComments>
+                </div>
+              </div>
               <v-divider></v-divider>
+              <!-- 点赞帖子 -->
               <v-card-actions class="pa-0 mx-1">
                 <LikeBtn :owner_type="posts_type" :ownerid="post.ID"></LikeBtn>
                 <v-icon @click="1">mdi-chat-outline</v-icon>
                 <v-icon @click="1">mdi-send-outline</v-icon>
                 <v-spacer></v-spacer>
                 <v-icon @click="1">mdi-bookmark-outline</v-icon>
-              </v-card-actions>
-              <v-card-text>
+              </v-card-actions >
+              <v-card-text class="pt-1 ma-0">
                 <strong> {{ post.LikesCount }}次赞 </strong>
+                <strong> {{ post.CommentsCount }} 回复 </strong>
               </v-card-text>
               <v-divider></v-divider>
-              <v-card-actions fixed class="pa-0 ma-0">
-                <el-input
-                  v-model="comment"
-                  prefix-icon="el-icon-s-comment"
-                  placeholder="添加评论..."
-                  maxlength="220"
-                >
-                </el-input>
-                <v-btn color="blue" text @click="1"> 发布 </v-btn>
-              </v-card-actions>
+              <!-- 评论输入框和提交按钮 -->
+              <commentInputTextArea :postid="post.ID"/>
             </v-card>
           </v-col>
+          
         </v-row>
       </div>
     </v-container>
   </v-sheet>
 </template>
 <script>
-import PostComments from '@/components/postcards/postcomments.vue'
+import PostComments from '~/components/postcards/postComments.vue'
 import LikeBtn from '~/components/common/LikeBtn.vue'
+import postcardTItle from '@/components/postcards/postcardTItle.vue'
+import commentInputTextArea from '@/components/comment/commentInputTextArea.vue'
 export default {
-  components:{
+  components: {
     PostComments,
-    LikeBtn
+    LikeBtn,
+    postcardTItle,
+    commentInputTextArea
   },
   layout: 'default',
   middleware: 'auth',
-  asyncData({ params, store, error }) {
-     return store
-      .dispatch('getPostModule/getPostsByPostId', params.postid)
-      .then((res) => {
-        const post =res.data.post
-        return store.dispatch('UserModule/getUserByUid', post.UserID).then(res=>{
-          return {
-          post,
-          user:res.data.data
-          }
-        }).catch(()=>{
-        error({ statusCode: 404, message: 'Post not found' })
-        })
-        
-      })
-      .catch((e) => {
-        error({ statusCode: 404, message: 'Post not found' })
-      })
-    
-      
+  async asyncData({ params, store }) {
+    const post = await store.dispatch('getPostModule/getPostsByPostId', params.postid).then(res => {
+      return res.data.post
+    })
+    return {
+      post
+    }
   },
   data: () => ({
-    comment: '',
-    posts_type:'posts',
-    comment_type:'comments',
+    posts_type: 'posts',
+    comment_type: 'comments',
   }),
+  computed:{
+  },  
+  methods: {
+  },
 }
 </script>
-<style></style>
+<style scoped>
+.outer-container {
+  width: 100%;
+  height: 44vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.inner-container {
+  width: 100%;
+  height: 44vh;
+  position: absolute;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* for Chrome */
+.inner-container::-webkit-scrollbar {
+  display: none;
+}
+</style>

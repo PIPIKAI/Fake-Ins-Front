@@ -1,13 +1,15 @@
 import cteatePostModule from './module/createPost'
 import UserModule from './module/userModule'
 import getPostModule from './module/getPostModule'
+import commentModule from './module/commentModule'
 export const state = () => ({
     counter: 0,
     mid: null,
     snackbar: false,
     snackbarText: 'store.state',
     timeout:3000,
-    user: null
+    user: null,
+    appbarSelected:0
   })
   
   export const mutations = {
@@ -23,6 +25,9 @@ export const state = () => ({
     },
     SetInfo(state,user) {
       state.user=user
+    },
+    setAppbarSelected(state,newVal){
+      state.appbarSelected = newVal
     }
   }
   export const actions={
@@ -44,7 +49,9 @@ export const state = () => ({
   }
 
   export const modules={
+    namespace: true,
     cteatePostModule,
     UserModule,
-    getPostModule
+    getPostModule,
+    commentModule
   }

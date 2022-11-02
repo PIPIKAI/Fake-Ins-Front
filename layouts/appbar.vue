@@ -116,13 +116,13 @@ export default {
   data: () => ({
     addpost: false,
     iconItems: [
-      { v: '主页', icon: 'mdi-home-variant-outline', cicon: 'mdi-home-variant' },
-      { v: '发消息', icon: 'mdi-send-outline', cicon: 'mdi-send' },
+      { v: '主页', icon: 'mdi-home-variant-outline', cicon: 'mdi-home-variant',router:'/' },
+      { v: '发消息', icon: 'mdi-send-outline', cicon: 'mdi-send' ,router:''},
       { v: '发帖', icon: 'mdi-plus-box-outline', cicon: 'mdi-plus-box' },
       { v: '发现', icon: 'mdi-compass-outline', cicon: 'mdi-compass' },
       { v: '被点赞', icon: 'mdi-cards-heart-outline', cicon: 'mdi-cards-heart' },
     ],
-    selected: 0,
+    // selected: 0,
     postDialog: false,
     postcardStatus: 0,
     exitdialog: false,
@@ -132,20 +132,18 @@ export default {
   computed: {
     avater() {
       return this.$store.state.user.Photo
+    },
+    selected:{
+      set(newVal){
+        return this.$store.commit("setAppbarSelected",newVal)
+      },
+      get(){
+        return this.$store.appbarSelected
+      },
+      
     }
   },
   watch: {
-    selected(newdata, _) {
-      if (newdata === 3) {
-        this.$router.replace('/exploer')
-      } else if (newdata === 2) {
-        this.postDialog = true
-      } else if (newdata === 0) {
-        if (this.$route.path !== '/') {
-          this.$router.push('/')
-        }
-      }
-    },
     postDialog(newdata, _) {
       if (newdata === false) {
         this.selected = 0
@@ -154,8 +152,7 @@ export default {
   },
   methods: {
     async logout() {
-      await this.$authApi.logout().then((res) => {
-        console.log('res:', res.data)
+      await this.$authApi.logout().then(() => {
         this.$cookies.remove('info')
         this.$router.replace({ name: 'login' });
       }).catch(() => {

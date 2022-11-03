@@ -118,9 +118,9 @@
 </template>
 
 <script>
-import UploadCard from '../createpost/uploadCard.vue'
-import CropImageCard from '../createpost/cropImageCard.vue'
-import CreatePostCard from '../createpost/createPostCard.vue'
+import UploadCard from '../createpost/UploadCard'
+import CropImageCard from '../createpost/CropImageCard'
+import CreatePostCard from '../createpost/CreatePostCard'
 
 export default {
   components:{

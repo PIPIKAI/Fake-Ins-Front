@@ -53,7 +53,6 @@
 </template>
 <script>
 export default {
-    name: 'UploadLitterCard',
     data:()=>({
         dialogImageUrl: '',
         dialogVisible: false,

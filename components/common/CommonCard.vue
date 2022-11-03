@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  name: 'CommonCard'
+
 }
 </script>
 <style lang=""></style>

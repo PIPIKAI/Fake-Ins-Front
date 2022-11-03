@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import MiniPostCard from '@/components/postcards/minipostcard.vue'
+import MiniPostCard from '@/components/postcards/MiniPostCard'
 export default {
   components:{
     MiniPostCard,

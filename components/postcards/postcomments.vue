@@ -3,7 +3,7 @@
     <v-list three-line>
       <div class="ma-auto ">
         <template v-for="(item, index) in comments" >
-          <commentItem :key="index" :item="item" />
+          <CommentItem :key="index" :item="item" />
         </template>
       </div>
       <div class="mb-2 mt-3"></div>
@@ -19,10 +19,10 @@
   </div>
 </template>
 <script>
-import commentItem from './commentItem.vue'
+import CommentItem from './CommentItem'
 export default {
   name: 'PostComments',
-  components:{commentItem},
+  components:{CommentItem},
   props: {
     postid: {
       type: Number,

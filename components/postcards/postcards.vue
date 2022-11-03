@@ -1,7 +1,7 @@
 <template>
   <div v-if="!deleted">
     <v-card :loading="loading" flat rounded="lg" outlined class="mx-auto my-5 pa-0" max-width="500">
-      <postcardTItle :uid="postContend.UserID" :postid="postContend.ID" @deletePost="deleted = true" />
+      <PostCardTitle :uid="postContend.UserID" :postid="postContend.ID" @deletePost="deleted = true" />
       <!-- 轮播图 -->
       <v-carousel hide-delimiter-background delimiter-icon="mdi-minus" height="auto" min-height="200">
         <v-carousel-item v-for="(item, i) in postContend.ImgUrls" :key="i" eager height="auto" :src="item.Url">
@@ -51,13 +51,13 @@
 
 </template>
 <script>
-import LikeBtn from '../common/LikeBtn.vue'
-import postcardTItle from './postcardTItle.vue'
+import LikeBtn from '../common/LikeBtn'
+import PostCardTitle from '@/components/postcards/PostCardTitle'
 export default {
   name: 'PostCards',
   components: {
     LikeBtn,
-    postcardTItle
+    PostCardTitle
   },
   props: {
     postContend: {

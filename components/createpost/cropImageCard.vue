@@ -128,9 +128,8 @@
   </div>
 </template>
 <script>
-import UploadLitterCard from './uplodLitterCard.vue'
+import UploadLitterCard from './UplodLitterCard'
 export default {
-  name: 'CropImageCard',
   components:{UploadLitterCard},
   data: () => ({
     ImgeList: [],

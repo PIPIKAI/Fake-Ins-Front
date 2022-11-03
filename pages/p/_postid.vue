@@ -17,7 +17,7 @@
 
             <v-card max-height="60vh" max-width="45vh" class="ma-auto pa-0" flat outlined>
               <!-- 头像 -->
-              <postcardTItle height="6vh" :uid="post.UserID" :postid="post.ID" @deletePost="deleted = true" />
+              <PostCardTitle height="6vh" :uid="post.UserID" :postid="post.ID" @deletePost="deleted = true" />
               <v-divider></v-divider>
               <!-- 评论 -->
               <div class="outer-container">
@@ -50,16 +50,16 @@
   </v-sheet>
 </template>
 <script>
-import PostComments from '~/components/postcards/postComments.vue'
-import LikeBtn from '~/components/common/LikeBtn.vue'
-import postcardTItle from '@/components/postcards/postcardTItle.vue'
-import commentInputTextArea from '@/components/comment/commentInputTextArea.vue'
+import PostComments from '~/components/postcards/PostComments'
+import LikeBtn from '~/components/common/LikeBtn'
+import PostCardTitle from '@/components/postcards/PostCardTitle'
+import CommentInputTextArea from '@/components/comment/CommentInputTextArea'
 export default {
   components: {
     PostComments,
     LikeBtn,
-    postcardTItle,
-    commentInputTextArea
+    PostCardTitle,
+    CommentInputTextArea
   },
   layout: 'default',
   middleware: 'auth',

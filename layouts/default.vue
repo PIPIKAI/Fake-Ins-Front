@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <appBar></appBar>
+    <AppBar></AppBar>
     <v-main >
       <v-container>
         <v-snackbar v-model="data.snackbar" :timeout="$store.state.timeout" light>
@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import appBar from '../components/globle/appBar.vue';
+import AppBar from '../components/globle/AppBar';
 export default {
-  components:{appBar},
+  components:{AppBar},
   computed :{
     data(){
       return {

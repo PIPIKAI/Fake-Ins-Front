@@ -6,7 +6,6 @@
 </template>
 <script>
 export default {
-    name: 'LikeBtn',
     props: {
         ownerid: Number,
         owner_type:String,

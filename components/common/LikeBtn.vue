@@ -43,6 +43,7 @@ export default {
             console.log(res)
             this.liked = true
             // this.$store.commit('sendSnackbar',"点赞成功")
+            this.$emit("liked")
         }).catch(err=>{
             console.log(err)
             this.$store.commit('sendSnackbar',"点赞失败")
@@ -52,6 +53,7 @@ export default {
             await this.$store.dispatch('UndoLike', this.reqData).then(res=>{
             console.log(res)
             this.liked = false
+            this.$emit("unliked")
             // this.$store.commit('sendSnackbar',"取消点赞成功")
         }).catch(err=>{
             console.log(err)

@@ -3,7 +3,7 @@
         <v-card min-height="73vh">
         
  
-           <div class="text-h6 font-weight-bold text-center">
+        <div class="text-h6 font-weight-bold text-center">
           创建新帖子
         </div>
 

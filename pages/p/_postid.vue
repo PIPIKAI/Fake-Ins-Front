@@ -40,7 +40,7 @@
               </v-card-text>
               <v-divider></v-divider>
               <!-- 评论输入框和提交按钮 -->
-              <commentInputTextArea :postid="post.ID"/>
+              <CommentInputTextArea :postid="post.ID"/>
             </v-card>
           </v-col>
           

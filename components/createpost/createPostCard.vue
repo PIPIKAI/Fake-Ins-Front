@@ -94,7 +94,6 @@ export default {
   }),
   computed: {},
   methods: {
-    reload() {},
     uploadPost() {
       this.$store.dispatch('cteatePostModule/createPost',{
         "user_id" : this.$store.state.user.ID,

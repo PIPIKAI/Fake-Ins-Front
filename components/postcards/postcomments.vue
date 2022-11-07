@@ -3,7 +3,7 @@
     <v-list three-line>
       <div class="ma-auto ">
         <template v-for="(item, index) in comments" >
-          <CommentItem :key="index" :item="item" />
+          <CommentItem :key="index" :item="JSON.parse(JSON.stringify(item))" />
         </template>
       </div>
       <div class="mb-2 mt-3"></div>
@@ -52,7 +52,7 @@ export default {
       'page': this.page,
       'page_size':this.page_size
     }).then(res => {
-      if(res.data.data.length === 0){
+      if(res.data.data.length < this.page_size){
         this.pageBtn = false
       }else{
         this.pageBtn = true

@@ -5,8 +5,7 @@
       </v-col>
       <v-col cols="12" md="5">
         <div v-for="(post,index) in posts" :key="index">
-          <postcards :post-contend="post" min-height="70vh" />
-        
+          <PostCards :post-contend="post" min-height="70vh" />
         </div>
 
       </v-col>
@@ -73,7 +72,9 @@
 </template>
 
 <script>
+import PostCards from '~/components/postcards/PostCards'
 export default {
+  components:{PostCards},
   layout: 'default',
   middleware: 'auth',
   async asyncData({ store}) {

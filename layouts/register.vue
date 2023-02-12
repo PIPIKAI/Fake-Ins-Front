@@ -25,17 +25,17 @@
       </template>
     </v-snackbar>
         <v-col class="text-center">
-          <v-sheet max-width="38vh" class="mx-auto px-8" elevation="1">
-          <v-card v-if="page == 0" ref="form" class="mx-1" width="35vh" flat>
+          <v-sheet rounded max-width="38vh" class="mx-auto px-8" elevation="1">
+          <v-card  v-if="page == 0" ref="form" class="mx-1" width="35vh" flat>
             <v-img
               height="100%"
               width="100%"
-              src="https://gd-hbimg.huaban.com/f4c384c25a3c7f8c6571a2e34dfe62da5218d743151e2-Q2HJ6i_fw1200"
+              src="http://pic.kiass.top/logo2.png"
             >
             </v-img>
             <v-card-text >
-              <v-card-title class="mx-auto pa-20"
-                >注册 Ins，分享精彩世界</v-card-title
+              <v-card-title class="mx-auto pa-20 text-center"
+                >分享精彩世界</v-card-title
               >
             </v-card-text>
             <v-card-text>
@@ -148,7 +148,7 @@
             <img
               height="100%"
               width="100%"
-              src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F00%2F87%2F76%2F58db160c57608_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661761074&t=ae9865faa49bc2bce556ee63de27a473"
+              src="http://pic.kiass.top/logo.png"
             >
             </img>
             <!-- <v-card-text> -->
@@ -183,7 +183,7 @@
         </v-sheet>
         </v-col>
         <v-col>
-          <v-sheet max-width="38vh" class="mx-auto pa-5" elevation="1">
+          <v-sheet rounded max-width="38vh" class="mx-auto pa-5" elevation="1">
             <v-card width="35vh" flat>
               <v-col>
                 <v-card-text class="text-subtitle-2 text-center">

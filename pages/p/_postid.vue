@@ -1,10 +1,10 @@
 <template>
-  <v-sheet outlined>
+  <v-sheet >
     <v-container fill-height>
       <div class="ma-auto">
         <v-row>
-          <v-col class="ma-0 pa-0">
-            <v-card flat>
+          <v-col  md="8" class="ma-0 pa-0">
+            <v-card max-height="60vh" flat outlined>
               <v-carousel hide-delimiter-background delimiter-icon="mdi-minus" width="auto" height="auto"
                 :continuous="false">
                 <v-carousel-item v-for="(item, i) in post.ImgUrls" :key="i">
@@ -13,21 +13,21 @@
               </v-carousel>
             </v-card>
           </v-col>
-          <v-col class="ma-0 pa-0">
+          <v-col md="4" sm="8" class="ma-0 pa-0">
 
-            <v-card max-height="60vh" max-width="45vh" class="ma-auto pa-0" flat outlined>
+            <v-card height="60vh" class="ma-auto pa-0" flat outlined>
               <!-- 头像 -->
               <PostCardTitle height="6vh" :uid="post.UserID" :postid="post.ID" @deletePost="deleted = true" />
               <v-divider></v-divider>
               <!-- 评论 -->
               <div class="outer-container">
                 <div class="inner-container">
-                  <PostComments :postid="post.ID"></PostComments>
+                  <PostComments  :postid="post.ID"></PostComments>
                 </div>
               </div>
               <v-divider></v-divider>
               <!-- 点赞帖子 -->
-              <v-card-actions class="pa-0 mx-1">
+              <v-card-actions  class="pa-0 mx-1">
                 <LikeBtn :owner_type="posts_type" :ownerid="post.ID"></LikeBtn>
                 <v-icon @click="1">mdi-chat-outline</v-icon>
                 <v-icon @click="1">mdi-send-outline</v-icon>
@@ -87,6 +87,7 @@ export default {
   height: 44vh;
   position: relative;
   overflow: hidden;
+  margin: 0%;
 }
 
 .inner-container {
@@ -96,6 +97,8 @@ export default {
   left: 0;
   overflow-x: hidden;
   overflow-y: scroll;
+  margin: 0%;
+
 }
 
 /* for Chrome */

@@ -3,7 +3,9 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-
+  env:{
+    apiUrl: process.env.VUE_APP_BASE_API || 'http://localhost:1016/api/v1'
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - FakerIns',
@@ -47,6 +49,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     'cookie-universal-nuxt',
+    // '@nuxtjs/proxy'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -54,13 +57,25 @@ export default {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
   },
-
-   
+  // proxy: {
+  //   '/api/': {
+  //     target: 'http://localhost:1016', // 目标服务器ip
+  //     pathRewrite: {
+  //       '^/api/': '/api',  // 把 /api 替换成 /
+  //       changeOrigin: true // 是否跨域
+  //     }
+  //   }
+  // },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
       lang: 'en',
     },
+  },
+
+  server:{
+    host:'0.0.0.0',
+    port: 3002
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

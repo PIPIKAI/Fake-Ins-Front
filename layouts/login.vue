@@ -24,12 +24,12 @@
       </template>
     </v-snackbar>
         <v-col >
-          <v-sheet max-width="35vh" class="mx-auto pa-5" elevation="1">
+          <v-sheet rounded max-width="35vh" class="mx-auto pa-5" elevation="1">
           <v-card width="35vh" flat>
             <v-img
               height="100%"
               width="100%"
-              src="https://gd-hbimg.huaban.com/f4c384c25a3c7f8c6571a2e34dfe62da5218d743151e2-Q2HJ6i_fw1200"
+              src="http://pic.kiass.top/logo2.png"
             >
             </v-img>
             <v-card-text>
@@ -63,7 +63,7 @@
         </v-col>
         
         <v-col >
-          <v-sheet max-width="35vh" class="mx-auto pa-5" elevation="1">
+          <v-sheet rounded max-width="35vh" class="mx-auto pa-5" elevation="1">
             <v-card width="35vh" flat>
               <v-col>
                 <v-card-text class="text-subtitle-2 text-center">

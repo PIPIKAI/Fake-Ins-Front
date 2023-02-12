@@ -9,7 +9,9 @@ export const state = () => ({
     snackbarText: 'store.state',
     timeout:3000,
     user: null,
-    appbarSelected:0
+    appbarSelected:0,
+    watchedListDialog:false,
+    fansListDialog: false,
   })
   
   export const mutations = {
@@ -20,6 +22,12 @@ export const state = () => ({
       state.snackbar = true
       state.snackbarText = msg
     },
+    setWatchedListDialogF(state){
+      state.watchedListDialog=false
+    },
+    setWatchedListDialogT(state){
+      state.watchedListDialog=true
+    },
     SnackbarReset(state) {
       state.snackbar = false
     },
@@ -28,6 +36,12 @@ export const state = () => ({
     },
     setAppbarSelected(state,newVal){
       state.appbarSelected = newVal
+    },
+    setFansListDialog(stata,ft){
+      stata.fansListDialog = ft
+    },
+    setWatchedListDialog(stata,ft){
+      stata.watchedListDialog = ft
     }
   }
   export const actions={

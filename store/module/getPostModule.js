@@ -14,8 +14,8 @@ const getPostModule = {
         this.$authApi.GetPostByUserID(uid).then((result) => {resolve(result.data)}).catch((err) =>{ reject(err)});
       }); 
     },
-    async getHomePosts(state){
-      return await this.$authApi.GetHomePosts().then((result) => result.data).catch((err) =>  (err));
+    async getHomePosts(state,data){
+      return await this.$authApi.GetHomePosts(data).then((result) => result.data).catch((err) =>  (err));
     },
     async deletePost(state,data){
       return new Promise((resolve, reject) => {

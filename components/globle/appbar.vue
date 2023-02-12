@@ -57,8 +57,8 @@
         </v-col>
         <v-col md="2" class="pa-1">
 
-          <img height="50vh" lazy-src="https://picsum.photos/id/11/10/6"
-            src="https://gd-hbimg.huaban.com/f4c384c25a3c7f8c6571a2e34dfe62da5218d743151e2-Q2HJ6i_fw1200">
+          <img height="45vh"
+            src="http://pic.kiass.top/logo2.png">
 
         </v-col>
         <v-col md="2" class="pa-3">
@@ -99,7 +99,7 @@
                     个人信息
                   </v-btn>
                   <v-divider class="my-3"></v-divider>
-                  <v-btn depressed rounded text @click="myWatched">
+                  <v-btn depressed rounded text @click="$store.commit('setWatchedListDialogT')">
                     我的关注
                   </v-btn>
                   <v-divider class="my-3"></v-divider>
@@ -183,9 +183,6 @@ export default {
       this.exitdialog = false;
       this.$store.commit('cteatePostModule/setFileList',null)
       this.postcardStatus=0
-    },
-    myWatched(){
-      this.wathchedListDialog = true
     },
     changeSelected(newdata){
       this.selected = newdata

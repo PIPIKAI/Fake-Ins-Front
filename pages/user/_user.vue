@@ -27,8 +27,8 @@
             </v-row>
             <v-row>
               <v-col>{{userInfo.PostsCounts}} 帖子 </v-col>
-              <v-col> {{userInfo.FansCounts}} 粉丝 </v-col>
-              <v-col> {{userInfo.WatchsCounts}} 关注 </v-col>
+              <v-col @click="userInfo.ID == $store.state.user.ID ? $store.commit('setFansListDialog',true) : 1"> {{userInfo.FansCounts}} 粉丝 </v-col>
+              <v-col @click="userInfo.ID == $store.state.user.ID ? $store.commit('setWatchedListDialogT') : 1"> {{userInfo.WatchsCounts}} 关注 </v-col>
             </v-row>
             <v-row>
               <v-col> {{userInfo.Bio}} </v-col>
@@ -105,6 +105,9 @@ export default {
   methods:{
     log(data){
       console.log(data);
+    },
+    openWatchDialog(){
+
     }
   }
 }

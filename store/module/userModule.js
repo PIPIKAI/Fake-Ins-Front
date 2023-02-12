@@ -41,7 +41,18 @@ const UserModule = {
       },
       async getUserByUid(state,uid){
         return this.$authApi.GetUserByUid(uid).then((result) =>result).catch((err)=>(err))
-   
+      },
+      async getWatchedList(state,data){
+        return this.$authApi.GetWatchedList(data).then((result) =>result).catch((err)=>(err))
+      },
+      async getFansList(state,data){
+        return this.$authApi.GetFansList(data).then((result) =>result).catch((err)=>(err))
+      },
+      async watchedOrNot(state,uid){
+        return this.$authApi.WatchedOrNot(uid).then((result) =>result).catch((err)=>(err))
+      },
+      async beWatchedOrNot(state,uid){
+        return this.$authApi.BeWatchedOrNot(uid).then((result) =>result).catch((err)=>(err))
       },
     },
     getters:{

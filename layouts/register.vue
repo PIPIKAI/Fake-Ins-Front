@@ -293,6 +293,7 @@ export default {
         this.page =2
       }).catch(error => {
         this.sendSnackbar(error.response.data.msg)
+        this.nextsteploading= false
       })
     },
     async register() {
@@ -304,7 +305,7 @@ export default {
 
         this.$cookies.set('info',  cookieObj.info,{maxAge: 604800})
 
-        this.$router.replace({ name: 'index' });
+        this.$router.push('/');
       }).catch(error => {
         this.sendSnackbar(error.response.data.msg)
       })

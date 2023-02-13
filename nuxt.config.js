@@ -6,6 +6,9 @@ export default {
   env:{
     apiUrl: process.env.VUE_APP_BASE_API || 'http://localhost:1016/api/v1'
   },
+  router: {
+    mode: 'hash'
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - FakerIns',
@@ -75,7 +78,7 @@ export default {
 
   server:{
     host:'0.0.0.0',
-    port: 3002
+    port: 3000
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -108,8 +108,9 @@ export default {
         console.log('res:', res.data)
         const cookieObj = parseHead(res.data.cookie)
         this.sendSnackbar("登录成功")
-        this.$cookies.set('info',  cookieObj.info,{maxAge:parseInt(cookieObj[" Max-Age"])})
-        this.$router.replace({ name: 'index' });
+        console.log('cookieObj:',cookieObj)
+        this.$cookies.set('info',  cookieObj.info,{maxAge: 7*60*60})
+        this.$router.push('/');
       }).catch(error => {
         this.sendSnackbar(error.response.data.msg)
       })

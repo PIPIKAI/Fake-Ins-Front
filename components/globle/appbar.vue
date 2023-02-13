@@ -163,7 +163,7 @@ export default {
       await this.$authApi.logout().then(() => {
         // console.log('res:', res.data)
         this.$cookies.remove('info')
-        this.$router.replace({ name: 'login' });
+        this.$router.push('/login');
       }).catch(() => {
         this.$store.commit("sendSnackbar", "error")
       })

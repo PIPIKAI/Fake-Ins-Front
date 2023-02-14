@@ -1,6 +1,13 @@
 <template lang="">
   <div v-cloak>
-    <v-card min-height="75vh">
+    <v-dialog
+      class="pa-0 ma-0"
+      v-model="dialog"
+      persistent
+      :width="miniheight"
+      @click:outside="$emit('closeDialog')"
+    >
+    <v-card :min-height="miniheight">
       <v-card-actions class="pa-1">
         <v-btn text color="primary" @click="$emit('abandonPost')">上一步</v-btn>
         <v-spacer></v-spacer>
@@ -12,11 +19,11 @@
       <v-carousel
         ref="carouselRef"
         v-model="operatId"
-        height="75vh"
+        :height="miniheight"
         show-arrows-on-hover
         :continuous="false"
       >
-        <v-carousel-item v-for="(item, i) in ListData" :key="i">
+        <v-carousel-item v-for="(item, i) in listdata" :key="i">
           <vueCropper
             ref="cropper"
             :img="item.blob"
@@ -35,7 +42,7 @@
       </v-carousel>
 
       <!-- 放大镜 -->
-      <v-menu top :close-on-content-click="false">
+      <v-menu v-if="zoom" top :close-on-content-click="false">
         <template #activator="{ on, attrs }">
           <v-btn
             icon
@@ -51,6 +58,7 @@
         </template>
 
         <v-card
+
           rounded
           min-width="10vh"
           class="ma-0 pa-0"
@@ -69,7 +77,7 @@
         </v-card>
       </v-menu>
       <!-- 新增图片 -->
-      <div>
+      <div v-if="miniuploadcard">
         <v-menu top :close-on-content-click="false" left>
           <template #activator="{ on, attrs }">
             <v-btn
@@ -86,7 +94,8 @@
           <UploadLitterCard @deletLastOne="$emit('abandonPost')" />
         </v-menu>
       </div>
-      <v-menu :close-on-content-click="false" top>
+      <!-- 比例选择 -->
+      <v-menu v-if="rate" :close-on-content-click="false" top>
         <template #activator="{ on, attrs }">
           <v-btn icon small class="cbtn" v-bind="attrs" color="white" v-on="on">
             <v-icon small>mdi-overscan</v-icon>
@@ -124,12 +133,46 @@
         </v-list>
       </v-menu>
     </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
-import UploadLitterCard from './UplodLitterCard'
+import UploadLitterCard from '@/components/createpost/UplodLitterCard.vue'
 export default {
   components: { UploadLitterCard },
+  props: {
+    dialog:{
+        type: Boolean,
+      required: true,
+    },
+    listdata: {
+      type: Array,
+      required: true,
+    },
+    miniheight: {
+      type: String,
+      required: false,
+    },
+    imgfixedrates: {
+      type: Array,
+      required: true,
+    },
+    zoom: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    miniuploadcard: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    rate:{
+        type: Boolean,
+        required: false,
+        default: true,
+    }
+  },
   data: () => ({
     ImgeList: [],
     fixedrate: [
@@ -142,40 +185,18 @@ export default {
     autoCrop: true,
     sliders: [50],
     operatId: 0,
+    selectFixedRate: 0,
+    // zoom:undefined,
+    // miniuploadcard:undefined,
+    // rate:undefined,
   }),
   computed: {
     ListLen() {
       return this.$store.state.createPostModule.FileList.length
     },
-    ListData: {
-      get() {
-        return this.$store.state.createPostModule.FileList
-      },
-      set(value) {
-        this.$store.commit('createPostModule/setFileList', value)
-      },
-    },
-    selectFixedRate: {
-      get() {
-        return this.$store.state.createPostModule.selectFixedRate
-      },
-      set(value) {
-        this.$store.commit('createPostModule/setSelectFixedRate', value)
-      },
-    },
-    newSliders() {
-      return JSON.parse(JSON.stringify(this.sliders))
-    },
   },
   watch: {
-    newSliders: {
-      handler(newValue, oldValue) {
-        this.$refs.cropper[this.operatId].changeScale(
-          (newValue[this.operatId] - oldValue[this.operatId]) * 2
-        )
-      },
-      deep: true,
-    },
+
   },
   mounted() {
     this.initSlider()
@@ -183,15 +204,6 @@ export default {
   methods: {
     initSlider() {
       this.sliders = new Array(this.ListLen + 10).fill(50.0)
-    },
-    reload() {
-      // 移除组件
-      this.update = false
-      // 在组件移除后，重新渲染组件
-      // this.$nextTick可实现在DOM 状态更新后，执行传入的方法。
-      this.$nextTick(() => {
-        this.update = true
-      })
     },
     async test() {
       this.autoCrop = !this.autoCrop
@@ -205,27 +217,22 @@ export default {
         this.operatId++
         return
       }
-      console.log(this.$refs.cropper)
-      const temp = JSON.parse(JSON.stringify(this.ListData))
-      for (let i = 0; i < temp.length; i++) {
+      let res =[]
+      for (let i = 0; i < this.listdata.length; i++) {
         this.$refs.cropper[i].getCropBlob((data) => {
           const cropedBlobUrl = window.URL.createObjectURL(data)
-          temp[i].cropedBlobUrl = cropedBlobUrl
-          temp[i].blobData = data
-          this.$store.commit(
-            'createPostModule/setFileList',
-            JSON.parse(JSON.stringify(temp))
-          )
-        })
-        this.$refs.cropper[i].getCropData((data) => {
-          temp[i].base64Date = data
-          this.$store.commit(
-            'createPostModule/setFileList',
-            JSON.parse(JSON.stringify(temp))
-          )
+          this.listdata[i].cropedBlobUrl = cropedBlobUrl
+          this.listdata[i].blobData = data
+
+          this.$refs.cropper[i].getCropData((data) => {
+            this.listdata[i].base64Date = data
+              console.log("i =",i,JSON.parse(JSON.stringify(this.listdata)))
+              res.push(JSON.parse(JSON.stringify(this.listdata)))
+              this.$emit('nextStep', JSON.parse(JSON.stringify(this.listdata)))
+          })
         })
       }
-      this.$emit('nextpage')
+
     },
     operate() {
       this.operatId = this.$refs.carouselRef.internalIndex

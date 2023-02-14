@@ -9,9 +9,9 @@ const getPostModule = {
     async getPostsByPostId(state,postID){
       return await this.$authApi.GetPostByPostID(postID).then((result) => result).catch((err) =>  reject(err));
     },
-    async getPostsByUid(state,uid){
+    async getPostsByUid(state,data){
       return new Promise((resolve, reject) => {
-        this.$authApi.GetPostByUserID(uid).then((result) => {resolve(result.data)}).catch((err) =>{ reject(err)});
+        this.$authApi.GetPostByUserID(data.uid,data.pageinfo).then((result) => {resolve(result.data)}).catch((err) =>{ reject(err)});
       }); 
     },
     async getHomePosts(state,data){

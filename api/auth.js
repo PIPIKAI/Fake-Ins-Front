@@ -13,7 +13,6 @@ export default ($axios) => {
 
       // User
       info: () => $axios.post('/user/info'),
-      editInfo: (data) => $axios.put('/user/info',data),
       logout: () => $axios.post('/user/logout'),
       
       WatchUser: (uid) => $axios.post(`/user/watch/${uid}`),
@@ -26,6 +25,8 @@ export default ($axios) => {
       WatchedOrNot:(uid) => $axios.post(`/user/watchedornot?uid=${uid}`),
       BeWatchedOrNot:(uid) => $axios.post(`/user/bewatchedornot?uid=${uid}`),
       
+      ChangePhoto: (data) => $axios.post(`/user/photo`,data),
+      EditInfo: (data) => $axios.put(`/user/info`,data),
 
 
       // Post
@@ -35,7 +36,7 @@ export default ($axios) => {
       }),
       editPost: (postid,data) => $axios.put(`/post/edit/${postid}`,data),
       GetPostByPostID: (postid) => $axios.post(`/post/getby/postid/${postid}`),
-      GetPostByUserID: (uid) => $axios.post(`/post/getby/uid/${uid}`),
+      GetPostByUserID: (uid,data) => $axios.post(`/post/getby/uid/${uid}?page=${data.page}&page_size=${data.page_size}`),
       GetHomePosts: (data) => $axios.post(`/post/get/home?page=${data.page}&page_size=${data.page_size}`),
       // Like
       LikePost: (data) => $axios.post(`/post/like?ownerid=${data.ownerid}&owner_type=${data.owner_type}`),

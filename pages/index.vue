@@ -1,18 +1,24 @@
 <template>
   <v-app>
     <v-row>
-      <v-col cols="12" md="3"> </v-col>
-      <v-col cols="12" md="5">
+      <v-col  md="3"> </v-col>
+      <v-col  md="5">
         <div v-for="(post, index) in postList" :key="index">
-          <PostCards :post-contend="post" min-height="70vh" />
+          <PostCards :post-contend="post"  />
         </div>
-        <div v-if="InTheBottom">
+        <div v-if="!InTheBottom">
           <h3 class="centertext">
-            <p>没有更多内容啦</p>
+            {{loading}}
           </h3>
         </div>
+        <div v-else>
+          <h3 class="centertext">
+            没有更多内容啦
+          </h3>
+        </div>
+
       </v-col>
-      <v-col cols="12" md="3">
+      <v-col md="3">
           <HomeRight></HomeRight>
         </v-col>
     </v-row>
@@ -30,31 +36,39 @@ export default {
   data: () => ({
     postList :[],
     page:1,
-    page_size:2,
+    page_size:8,
     InTheBottom: false,
+    loading: '加载中',
   }),
   async mounted() {
     await document.addEventListener('scroll', this.debounce(this.handleScroll, 1000))
     this.postList = await this.$store.dispatch('getPostModule/getHomePosts', {'page':this.page,'page_size':this.page_size}).then(res => res.data)
+  },
+  computed:{
+    emptyList(){
+      return this.postList.length == 0
+    }
   },
   methods: {
     async handleScroll(){
       let scrollTop=document.documentElement.scrollTop//滚动条在Y轴滚动过的高度
       let scrollHeight=document.documentElement.scrollHeight//滚动条的高度
       let clientHeight=document.documentElement.clientHeight//浏览器的可视高度
-      if(scrollTop + clientHeight >= scrollHeight){
+      if(scrollTop + clientHeight + 10>= scrollHeight){
         console.log('触底了');
         if(this.InTheBottom){
           return
         }
         this.page += 1
+        this.loading = "加载中"
+
         let newList = await this.$store.dispatch('getPostModule/getHomePosts', {'page':this.page,'page_size':this.page_size}).then(res => res.data)
         if(newList.length == 0){
           this.InTheBottom = true
           window.scrollTo(99999,99999)
         }
         this.postList.push(...newList)
-
+        this.loading = ""
       }
     },
     debounce(fn, delay) {

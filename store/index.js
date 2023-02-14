@@ -1,7 +1,8 @@
-import cteatePostModule from './module/createPost'
+import createPostModule from './module/createPost'
 import UserModule from './module/userModule'
 import getPostModule from './module/getPostModule'
 import commentModule from './module/commentModule'
+import commonModule from './module/commonModule'
 export const state = () => ({
     counter: 0,
     mid: null,
@@ -64,8 +65,9 @@ export const state = () => ({
 
   export const modules={
     namespace: true,
-    cteatePostModule,
+    createPostModule,
     UserModule,
     getPostModule,
-    commentModule
+    commentModule,
+    commonModule
   }

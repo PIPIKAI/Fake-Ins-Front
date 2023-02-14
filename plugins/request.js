@@ -74,6 +74,5 @@ export default function({ $axios,store }, inject) {
     
 
 	// 最后将我们的api文件进行注入
-	inject('indexApi', indexApi(axiosConfig($axios.create() )))
 	inject('authApi', authApi(axiosConfig($axios.create() )))
 }

@@ -54,6 +54,16 @@ const UserModule = {
       async beWatchedOrNot(state,uid){
         return this.$authApi.BeWatchedOrNot(uid).then((result) =>result).catch((err)=>(err))
       },
+      editUserInfo(state,data){
+        return new Promise((resolve, reject) => {
+          this.$authApi.EditInfo(data).then((result) => {resolve(result)}).catch((err) =>{ reject(err)});
+        });  
+      },
+      editUserPhoto(state,data){
+        return new Promise((resolve, reject) => {
+          this.$authApi.ChangePhoto(data).then((result) => {resolve(result)}).catch((err) =>{ reject(err)});
+        });  
+      }
     },
     getters:{
     }

@@ -5,16 +5,6 @@
       persistent
       max-width="30vh"
     >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Open Dialog
-        </v-btn>
-      </template>
       <v-card>
         <v-card-title>放弃编辑内容？</v-card-title>
         <v-card-actions>
@@ -50,18 +40,17 @@
           <CreatePostCard ref="postCard" @prepage="statussub"/>
       </div>
     </v-dialog>
-    <v-app-bar light app flat outlined>
+    <v-system-bar height="50" app>
       <v-row class="ma-auto">
         <v-col md="4">
 
         </v-col>
-        <v-col md="2" class="pa-1">
+        <v-col  class="pa-0 ma-0">
 
-          <img height="45vh"
+          <img height="42vh"
             src="http://pic.kiass.top/logo2.png">
-
         </v-col>
-        <v-col md="2" class="pa-3">
+        <v-col md="2" class="ma-0 pt-2">
           <v-text-field solo flat dense label="搜索" prepend-inner-icon="mdi-magnify">
           </v-text-field>
         </v-col>
@@ -83,8 +72,8 @@
               </v-btn>
             </template>
             <v-card flat>
-              <v-list-item-content class="justify-center">
-                <div class="mx-auto text-center">
+              <v-list-item-content>
+                <div class="text-center">
                   <v-avatar>
                     <v-icon v-if="$store.state.user.Photo == ''">mdi-account-circle</v-icon>
                     <img v-else :src='$store.state.user.Photo'>
@@ -113,7 +102,7 @@
         </v-col>
       </v-row>
 
-    </v-app-bar>
+    </v-system-bar>
   </div>
 </template>
 
@@ -181,7 +170,7 @@ export default {
     },
     abandonContent(){
       this.exitdialog = false;
-      this.$store.commit('cteatePostModule/setFileList',null)
+      this.$store.commit('createPostModule/setFileList',null)
       this.postcardStatus=0
     },
     changeSelected(newdata){

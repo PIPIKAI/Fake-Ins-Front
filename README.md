@@ -4,11 +4,11 @@
 
 > 整体界面简约
 
-![img2](C:/Users/Administrator/Desktop/img2.png)
+![img2](./docimgs/img2.png)
 
 >帖子的生成模块
 
-![img1](C:/Users/Administrator/Desktop/img1.png)
+![img1](./docimgs/img1.png)
 
 ## 如何使用
 ### 运行

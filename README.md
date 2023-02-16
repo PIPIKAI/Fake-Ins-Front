@@ -1,10 +1,12 @@
 # Fak Ins 网页端
 
-## 功能介绍
-
-
 ## 亮点模块
 
+> 整体界面简约
+![img2](C:/Users/Administrator/Desktop/img2.png)
+
+>帖子的生成模块
+![img1](C:/Users/Administrator/Desktop/img1.png)
 
 ## 如何使用
 ### 运行

@@ -1,4 +1,4 @@
-const cteatePostModule = {
+const createPostModule = {
   namespaced: true,
   state: {
     FileList:[],
@@ -18,7 +18,7 @@ const cteatePostModule = {
   },
   actions: {
     uploadimges(state,imgesList){
-      console.log('cteatePostModule / uploadimges')
+      console.log('createPostModule / uploadimges')
     },
     async createPost(state,data){
       return await this.$authApi.createPost(data).then((result) => result).catch((err) =>  reject(err));
@@ -34,5 +34,5 @@ const cteatePostModule = {
   }
 }
 
-export default cteatePostModule
+export default createPostModule
 

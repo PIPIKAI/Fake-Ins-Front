@@ -12,23 +12,23 @@
           </v-col>
           <v-col >
             <v-row>
-              <v-col>
+              <v-col md="5">
                 <strong>{{ userInfo.UserName }}</strong>
                 <div>{{userInfo.Name}}</div>
               </v-col>
-              <v-col :hidden="!isSelf">
-                <v-btn  outlined>编辑主页</v-btn>
+              <v-col  :hidden="!isSelf">
+                <v-btn  outlined @click="$router.push('/account/profile')">编辑</v-btn>
               </v-col>
-              <v-col>
+              <!-- <v-col>
                 <v-btn icon>
                   <v-icon>mdi-cog</v-icon>
                 </v-btn>
-              </v-col>
+              </v-col> -->
             </v-row>
             <v-row>
               <v-col>{{userInfo.PostsCounts}} 帖子 </v-col>
-              <v-col> {{userInfo.FansCounts}} 粉丝 </v-col>
-              <v-col> {{userInfo.WatchsCounts}} 关注 </v-col>
+              <v-col @click="userInfo.ID == $store.state.user.ID ? $store.commit('setFansListDialog',true) : 1"> {{userInfo.FansCounts}} 粉丝 </v-col>
+              <v-col @click="userInfo.ID == $store.state.user.ID ? $store.commit('setWatchedListDialogT') : 1"> {{userInfo.WatchsCounts}} 关注 </v-col>
             </v-row>
             <v-row>
               <v-col> {{userInfo.Bio}} </v-col>
@@ -53,7 +53,7 @@
                 :key="item.tab"
                 width="100%"
               >
-                <v-sheet  outlined>
+                <v-sheet>
                 <nuxt-child keep-alive :tab="item.tab" :uid="userInfo.ID"></nuxt-child>
               </v-sheet>
             </v-tab-item>
@@ -105,6 +105,9 @@ export default {
   methods:{
     log(data){
       console.log(data);
+    },
+    openWatchDialog(){
+
     }
   }
 }

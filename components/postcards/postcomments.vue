@@ -31,7 +31,7 @@ export default {
   },
   data: () => ({
     page:1,
-    page_size:6,
+    page_size:9,
     pageBtn: false,
     btnTex:"",
     replyMode: false

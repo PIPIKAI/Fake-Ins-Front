@@ -1,6 +1,6 @@
 export default ($axios) => {
     
-    $axios.setBaseURL('http://localhost:1016/api/v1')
+    $axios.setBaseURL(process.env.apiUrl)
       
     return {
       // login and register
@@ -13,13 +13,21 @@ export default ($axios) => {
 
       // User
       info: () => $axios.post('/user/info'),
-      editInfo: (data) => $axios.put('/user/info',data),
       logout: () => $axios.post('/user/logout'),
       
       WatchUser: (uid) => $axios.post(`/user/watch/${uid}`),
+      GetWatchedList: (data) => $axios.post(`user/watchedusers?page=${data.page}&page_size=${data.page_size}`),
+      GetFansList: (data) => $axios.post(`user/getfans?page=${data.page}&page_size=${data.page_size}`),
+
       UnWatchUser: (uid) => $axios.post(`/user/unwatch/${uid}`),
       GetUserByUserName:(username) => $axios.post(`/user/getby/username/${username}`),
       GetUserByUid:(uid) => $axios.post(`/user/getby/uid/${uid}`),
+      WatchedOrNot:(uid) => $axios.post(`/user/watchedornot?uid=${uid}`),
+      BeWatchedOrNot:(uid) => $axios.post(`/user/bewatchedornot?uid=${uid}`),
+      
+      ChangePhoto: (data) => $axios.post(`/user/photo`,data),
+      EditInfo: (data) => $axios.put(`/user/info`,data),
+
 
       // Post
       createPost: data => $axios.post(`/post/create?uid=${data.user_id}`,data),
@@ -28,8 +36,8 @@ export default ($axios) => {
       }),
       editPost: (postid,data) => $axios.put(`/post/edit/${postid}`,data),
       GetPostByPostID: (postid) => $axios.post(`/post/getby/postid/${postid}`),
-      GetPostByUserID: (uid) => $axios.post(`/post/getby/uid/${uid}`),
-      GetHomePosts: () => $axios.post(`/post/get/home`),
+      GetPostByUserID: (uid,data) => $axios.post(`/post/getby/uid/${uid}?page=${data.page}&page_size=${data.page_size}`),
+      GetHomePosts: (data) => $axios.post(`/post/get/home?page=${data.page}&page_size=${data.page_size}`),
       // Like
       LikePost: (data) => $axios.post(`/post/like?ownerid=${data.ownerid}&owner_type=${data.owner_type}`),
       UndoLikePost: (data) => $axios.delete(`/post/undolike?ownerid=${data.ownerid}&owner_type=${data.owner_type}`),
@@ -43,7 +51,8 @@ export default ($axios) => {
       // ReplyPost:() =>  $axios.post('/user/unwatchedusers'),
       GetComments: (data) => $axios.get(`/comment/get?postid=${data.postid}&page=${data.page}&page_size=${data.page_size}`),
       CommentPost: (data) => $axios.post(`/comment/post?uid=${data.userID}`,data),
-      ReplyComment: (data) => $axios.post(`/comment/reply?uid=${data.userID}`,data)
+      ReplyComment: (data) => $axios.post(`/comment/reply?uid=${data.userID}`,data),
+
     }
   }
   

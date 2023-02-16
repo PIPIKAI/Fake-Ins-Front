@@ -10,16 +10,15 @@
     <v-divider></v-divider>
     <v-row class="ma-0 pa-0">
       <v-col class="ma-0 pa-0" md="9">
-        <v-card outline>
-          <v-carousel height="75vh" show-arrows-on-hover :continuous="false">
-            <v-carousel-item
-              v-for="(item, i) in $store.state.cteatePostModule.FileList"
+          <v-carousel height="100%" show-arrows-on-hover :continuous="false">
+            <v-carousel-item  
+              v-for="(item, i) in $store.state.createPostModule.FileList"
               :key="i"
             >
-              <v-img max-height="75vh" :src="item.cropedBlobUrl"></v-img>
+              <v-img max-height="75vh"    :src="item.cropedBlobUrl"></v-img>
             </v-carousel-item>
           </v-carousel>
-        </v-card>
+
       </v-col>
       <v-col fixed class="ma-0 pa-0" md="3">
         <v-card height="75vh" class="ma-auto pa-2" outline>
@@ -95,15 +94,16 @@ export default {
   computed: {},
   methods: {
     uploadPost() {
-      this.$store.dispatch('cteatePostModule/createPost',{
+      console.log(this.$store.state.createPostModule.FileList)
+      this.$store.dispatch('createPostModule/createPost',{
         "user_id" : this.$store.state.user.ID,
         "categorys":this.categorys,
         "mycomment":this.mycomment,
         "place":this.place,
-        "data_list": this.$store.state.cteatePostModule.FileList
+        "data_list": this.$store.state.createPostModule.FileList
       }).then(res=>{
         console.log(res)
-        this.$store.commit('cteatePostModule/setFileList',null)
+        this.$store.commit('createPostModule/setFileList',null)
         this.$router.go(0)
       }).catch(err =>{
         console.log(err)
@@ -115,4 +115,5 @@ export default {
   },
 }
 </script>
-<style lang=""></style>
+<style scoped>
+</style>

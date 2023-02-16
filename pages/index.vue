@@ -1,112 +1,96 @@
 <template>
   <v-app>
     <v-row>
-      <v-col cols="12" md="3">
-      </v-col>
-      <v-col cols="12" md="5">
-        <div v-for="(post,index) in posts" :key="index">
-          <PostCards :post-contend="post" min-height="70vh" />
+      <v-col  md="3"> </v-col>
+      <v-col  md="5">
+        <div v-for="(post, index) in postList" :key="index">
+          <PostCards :post-contend="post"  />
+        </div>
+        <div v-if="!InTheBottom">
+          <h3 class="centertext">
+            {{loading}}
+          </h3>
+        </div>
+        <div v-else>
+          <h3 class="centertext">
+            没有更多内容啦
+          </h3>
         </div>
 
       </v-col>
-
-      <v-col cols="12" md="3">
-        <v-sheet rounded="lg" class="mx-auto my-5 pa-1"   min-height="268">
-          <v-list subheader two-line>
-            
-            <v-subheader >
-              <v-avatar class="mr-4">
-                  <v-icon v-if="$store.state.user.Photo == ''">mdi-account-circle</v-icon>
-                  <img 
-                  v-else
-                    :src='$store.state.user.Photo'>
-
-              </v-avatar>
-              <v-list-item-content>
-                <v-list-item-title v-text="$store.state.user.Username"></v-list-item-title>
-
-                <v-list-item-subtitle v-text="$store.state.user.Name"></v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-action>
-                <v-btn color="primary" outlined>
-                  切换
-                </v-btn>
-              </v-list-item-action>
-            </v-subheader>
-            <v-subheader >
-              <strong>为你推荐</strong>
-              
-              <v-spacer></v-spacer>
-              查看全部
-            </v-subheader>
-            <v-list-item v-for="recommend_user in recommendUsers" :key="recommend_user.ID">
-              <v-list-item-avatar>
-                <img :src='recommend_user.Photo'>
-              </v-list-item-avatar>
-
-              <v-list-item-content>
-                <v-list-item-title v-text="recommend_user.Name"></v-list-item-title>
-
-                <v-list-item-subtitle >推荐用户</v-list-item-subtitle>
-              </v-list-item-content>
-
-              <v-list-item-action>
-                <v-btn color="primary" @click="watchUser(recommend_user.ID)" outlined>
-                  关注
-                </v-btn>
-              </v-list-item-action>
-            </v-list-item>
-
-
-            <v-subheader >关于.帮助.API.工作.隐私.条款.地点.语言</v-subheader>
-            <v-subheader >@2021 INSTANCE FROM METAA</v-subheader>
-          </v-list>
-          
-        </v-sheet>
-        
-      </v-col>
-
+      <v-col md="3">
+          <HomeRight></HomeRight>
+        </v-col>
     </v-row>
+    
   </v-app>
-
 </template>
 
 <script>
 import PostCards from '~/components/postcards/PostCards'
+import HomeRight from '~/components/homeright/HomeRight'
 export default {
-  components:{PostCards},
+  components: { PostCards, HomeRight },
   layout: 'default',
   middleware: 'auth',
-  async asyncData({ store}) {
-    const data = await store.dispatch('getPostModule/getHomePosts')
-    const posts = data.data
-    const page = data.page
-    const pageSize = data.page_size
-    const recommendUsers = await store.dispatch('UserModule/getCommendUsers')
-    return { 
-      posts,
-      page,
-      pageSize,
-      recommendUsers
+  data: () => ({
+    postList :[],
+    page:1,
+    page_size:8,
+    InTheBottom: false,
+    loading: '加载中',
+  }),
+  async mounted() {
+    await document.addEventListener('scroll', this.debounce(this.handleScroll, 1000))
+    this.postList = await this.$store.dispatch('getPostModule/getHomePosts', {'page':this.page,'page_size':this.page_size}).then(res => res.data)
+  },
+  computed:{
+    emptyList(){
+      return this.postList.length == 0
     }
   },
-  data: () => ({
-  }),
   methods: {
-    btnmethods() {
-      this.$store.commit('sendSnackbar', "messssssage")
-    },
-    async watchUser(uid){
-      await this.$store.dispatch('UserModule/watchUser',uid).then(res=>{
-        console.log("res",res)
-        if (res.code === 200){
-          this.$message.success("关注成功！")
-        }else{
-          this.$message.error(res.response.data.msg)
+    async handleScroll(){
+      let scrollTop=document.documentElement.scrollTop//滚动条在Y轴滚动过的高度
+      let scrollHeight=document.documentElement.scrollHeight//滚动条的高度
+      let clientHeight=document.documentElement.clientHeight//浏览器的可视高度
+      if(scrollTop + clientHeight + 10>= scrollHeight){
+        console.log('触底了');
+        if(this.InTheBottom){
+          return
         }
-        
-      })
-    }
-  }
+        this.page += 1
+        this.loading = "加载中"
+
+        let newList = await this.$store.dispatch('getPostModule/getHomePosts', {'page':this.page,'page_size':this.page_size}).then(res => res.data)
+        if(newList.length == 0){
+          this.InTheBottom = true
+          window.scrollTo(99999,99999)
+        }
+        this.postList.push(...newList)
+        this.loading = ""
+      }
+    },
+    debounce(fn, delay) {
+      let timer = null; // 借助闭包
+      return function () {
+        if (timer) {
+          clearTimeout(timer);
+        }
+        timer = setTimeout(fn, delay); // 简化写法
+      };
+    },
+
+  },
+  destroyed(){
+    window.removeEventListener('scroll', this.handleScroll);
+  },
 }
 </script>
+<style>
+  .centertext {
+    text-align: center;
+    color: rgb(16, 5, 50);
+
+  }
+</style>

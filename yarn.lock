@@ -2464,9 +2464,9 @@
     "postcss-value-parser" "^4.1.0"
 
 "axios-retry@^3.1.9":
-  "integrity" "sha512-RohAUQTDxBSWLFEnoIG/6bvmy8l3TfpkclgStjl5MDCMBDgapAWCmr1r/9harQfWC8bzLC8job6UcL1A1Yc+/Q=="
-  "resolved" "https://registry.npmmirror.com/axios-retry/-/axios-retry-3.3.1.tgz"
-  "version" "3.3.1"
+  "integrity" "sha512-VdgaP+gHH4iQYCCNUWF2pcqeciVOdGrBBAYUfTY+wPcO5Ltvp/37MLFNCmJKo7Gj3SHvCSdL8ouI1qLYJN3liA=="
+  "resolved" "https://registry.npmmirror.com/axios-retry/-/axios-retry-3.4.0.tgz"
+  "version" "3.4.0"
   dependencies:
     "@babel/runtime" "^7.15.4"
     "is-retry-allowed" "^2.2.0"
@@ -4284,7 +4284,7 @@
     "normalize-path" "^3.0.0"
     "schema-utils" "^3.1.1"
 
-"eslint@*", "eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8", "eslint@^6.0.0 || ^7.0.0 || ^8.0.0", "eslint@^6.2.0 || ^7.0.0 || ^8.0.0", "eslint@^7.0.0", "eslint@^7.0.0 || ^8.0.0", "eslint@^7.12.1", "eslint@^7.5.0 || ^8.0.0", "eslint@^8.3.0", "eslint@^8.4.1", "eslint@>= 6", "eslint@>=4.19.1", "eslint@>=5", "eslint@>=5.16.0", "eslint@>=6.0.0", "eslint@>=7", "eslint@>=7.0.0", "eslint@>=7.32.0":
+"eslint@*", "eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8", "eslint@^6.0.0 || ^7.0.0 || ^8.0.0", "eslint@^6.2.0 || ^7.0.0 || ^8.0.0", "eslint@^7.0.0", "eslint@^7.0.0 || ^8.0.0", "eslint@^7.12.1", "eslint@^7.5.0 || ^8.0.0", "eslint@^8.3.0", "eslint@>= 6", "eslint@>=4.19.1", "eslint@>=5", "eslint@>=5.16.0", "eslint@>=6.0.0", "eslint@>=7", "eslint@>=7.0.0", "eslint@>=7.32.0":
   "integrity" "sha512-d4ixhz5SKCa1D6SCPrivP7yYVi7nyD6A4vs6HIAul9ujBzcEmZVM3/0NN/yu5nKhmO1wjp5xQ46iRfmDGlOviA=="
   "resolved" "https://registry.npmmirror.com/eslint/-/eslint-8.20.0.tgz"
   "version" "8.20.0"
@@ -4674,9 +4674,9 @@
     "readable-stream" "^2.3.6"
 
 "follow-redirects@^1.0.0", "follow-redirects@^1.14.0":
-  "integrity" "sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA=="
-  "resolved" "https://registry.npmmirror.com/follow-redirects/-/follow-redirects-1.15.1.tgz"
-  "version" "1.15.1"
+  "integrity" "sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA=="
+  "resolved" "https://registry.npmmirror.com/follow-redirects/-/follow-redirects-1.15.2.tgz"
+  "version" "1.15.2"
 
 "for-in@^1.0.2":
   "integrity" "sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ=="

@@ -41,8 +41,29 @@ const UserModule = {
       },
       async getUserByUid(state,uid){
         return this.$authApi.GetUserByUid(uid).then((result) =>result).catch((err)=>(err))
-   
       },
+      async getWatchedList(state,data){
+        return this.$authApi.GetWatchedList(data).then((result) =>result).catch((err)=>(err))
+      },
+      async getFansList(state,data){
+        return this.$authApi.GetFansList(data).then((result) =>result).catch((err)=>(err))
+      },
+      async watchedOrNot(state,uid){
+        return this.$authApi.WatchedOrNot(uid).then((result) =>result).catch((err)=>(err))
+      },
+      async beWatchedOrNot(state,uid){
+        return this.$authApi.BeWatchedOrNot(uid).then((result) =>result).catch((err)=>(err))
+      },
+      editUserInfo(state,data){
+        return new Promise((resolve, reject) => {
+          this.$authApi.EditInfo(data).then((result) => {resolve(result)}).catch((err) =>{ reject(err)});
+        });  
+      },
+      editUserPhoto(state,data){
+        return new Promise((resolve, reject) => {
+          this.$authApi.ChangePhoto(data).then((result) => {resolve(result)}).catch((err) =>{ reject(err)});
+        });  
+      }
     },
     getters:{
     }

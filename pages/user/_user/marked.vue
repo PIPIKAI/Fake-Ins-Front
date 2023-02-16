@@ -1,14 +1,13 @@
 <template>
     <div>
-        
+        marked
     </div>
 </template>
 <script>
 export default {
-    layout: 'default',
-    middleware: 'auth',
+    
 }
 </script>
-<style scoped>
+<style lang="">
     
 </style>

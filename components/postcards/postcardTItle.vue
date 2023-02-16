@@ -24,7 +24,7 @@
                 </v-btn>
             </v-sheet>
         </v-dialog>
-        <v-card-actions class="pa-1">
+        <v-card-actions  class="pa-1">
             <v-avatar size="30" class="mx-1" @click="$router.push('/user/'+user.UserName)">
                 <img :src="user.Photo" />
             </v-avatar>
@@ -32,6 +32,7 @@
             <v-spacer></v-spacer>
             <v-icon @click="menuDialog = true"> mdi-dots-horizontal </v-icon>
         </v-card-actions>
+        
     </div>
 </template>
 <script>

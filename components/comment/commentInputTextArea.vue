@@ -5,7 +5,7 @@
         v-model="commentContent"
         prefix-icon="el-icon-s-comment"
         placeholder="添加评论..."
-        maxlength="220"
+        maxlength="250"
       >
       </el-input>
       <v-btn
@@ -64,6 +64,7 @@ export default {
           this.$store.commit("commentModule/setShowComments",temp.concat(this.$store.state.commentModule.showComments)) 
         }
         this.$message.success("评论成功！")
+        this.commentContent =''
       }).catch(()=>{
         this.$message.error("评论失败！")
       })

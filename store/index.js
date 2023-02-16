@@ -1,7 +1,8 @@
-import cteatePostModule from './module/createPost'
+import createPostModule from './module/createPost'
 import UserModule from './module/userModule'
 import getPostModule from './module/getPostModule'
 import commentModule from './module/commentModule'
+import commonModule from './module/commonModule'
 export const state = () => ({
     counter: 0,
     mid: null,
@@ -9,7 +10,9 @@ export const state = () => ({
     snackbarText: 'store.state',
     timeout:3000,
     user: null,
-    appbarSelected:0
+    appbarSelected:0,
+    watchedListDialog:false,
+    fansListDialog: false,
   })
   
   export const mutations = {
@@ -20,6 +23,12 @@ export const state = () => ({
       state.snackbar = true
       state.snackbarText = msg
     },
+    setWatchedListDialogF(state){
+      state.watchedListDialog=false
+    },
+    setWatchedListDialogT(state){
+      state.watchedListDialog=true
+    },
     SnackbarReset(state) {
       state.snackbar = false
     },
@@ -28,6 +37,12 @@ export const state = () => ({
     },
     setAppbarSelected(state,newVal){
       state.appbarSelected = newVal
+    },
+    setFansListDialog(stata,ft){
+      stata.fansListDialog = ft
+    },
+    setWatchedListDialog(stata,ft){
+      stata.watchedListDialog = ft
     }
   }
   export const actions={
@@ -50,8 +65,9 @@ export const state = () => ({
 
   export const modules={
     namespace: true,
-    cteatePostModule,
+    createPostModule,
     UserModule,
     getPostModule,
-    commentModule
+    commentModule,
+    commonModule
   }
